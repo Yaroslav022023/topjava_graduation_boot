@@ -1,0 +1,58 @@
+spring:
+  jpa:
+    show-sql: true
+    open-in-view: false
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jpa_proxy_compliance: false
+        default_batch_fetch_size: 20
+        jdbc:
+          batch_size: 20
+        cache:
+          region:
+            factory_class: org.hibernate.cache.jcache.internal.JCacheRegionFactory
+          use_second_level_cache: true
+          use_query_cache: false
+          provider: org.ehcache.jsr107.EhcacheCachingProvider
+      jakarta:
+        persistence:
+          validation:
+            group:
+              pre-persist: com.topjava.graduation.View$Persist
+              pre-update: com.topjava.graduation.View$Persist
+
+  datasource:
+    # ImMemory
+    url: jdbc:h2:mem:graduationboot
+    username: sa
+    password:
+
+  # Jackson Serialization Issue Resolver
+  jackson.visibility:
+    field: any
+    getter: none
+    setter: none
+    is-getter: none
+
+  cache:
+    cache-names: users
+    caffeine.spec: maximumSize=5000
+
+logging:
+  level:
+    root: WARN
+    com.topjava.graduation: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
+
+server.servlet:
+  encoding:
+    charset: UTF-8
+    enabled: true # Enable http encoding support
+    force: true
+
+springdoc.swagger-ui.path: /

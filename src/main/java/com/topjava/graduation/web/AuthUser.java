@@ -1,6 +1,5 @@
 package com.topjava.graduation.web;
 
-import com.topjava.graduation.model.Role;
 import com.topjava.graduation.model.User;
 import lombok.Getter;
 import org.springframework.lang.NonNull;
@@ -31,20 +30,12 @@ public class AuthUser extends org.springframework.security.core.userdetails.User
         return requireNonNull(safeGet(), "No authorized user found");
     }
 
-    public static User authUser() {
-        return get().getUser();
-    }
-
     public static int authId() {
         return get().id();
     }
 
     public int id() {
         return user.id();
-    }
-
-    public boolean hasRole(Role role) {
-        return user.hasRole(role);
     }
 
     @Override

@@ -1,4 +1,4 @@
-<img src="http://javaops.ru/static/img/logo/javaops_30.png" width="223"/>
+<img src="https://javaops.ru/static/img/logo/javaops_30.png" width="223" alt=""/>
 
 # A restaurant voting system (with authentication and role-based access rights)
 

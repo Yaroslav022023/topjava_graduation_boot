@@ -17,7 +17,6 @@ import org.springframework.util.Assert;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 import static com.topjava.graduation.util.RestaurantUtil.convertToViewDtos;
 import static com.topjava.graduation.util.RestaurantUtil.convertToVotedByUserDto;
@@ -54,7 +53,9 @@ public class RestaurantService {
     }
 
     public RestaurantVotedByUserDto getVotedByUserForToday(int userId) {
-        return convertToVotedByUserDto(voiceRepository.getBelonged(userId, LocalDate.now()).getRestaurant());
+        Voice voice = voiceRepository.get(userId, LocalDate.now());
+        if (voice == null) return null;
+        return convertToVotedByUserDto(voice.getRestaurant());
     }
 
     @Transactional
@@ -71,14 +72,13 @@ public class RestaurantService {
 
     @Transactional
     public void vote(int userId, int restaurantId) {
-        Optional<Voice> existing = voiceRepository.get(userId, LocalDate.now());
-        existing.ifPresent(voice -> {
-            if (isAvailableUpdate(voice)) {
-                voice.setRestaurant(restaurantRepository.getReferenceById(restaurantId));
-                voice.setTime(LocalTime.now());
+        Voice existing = voiceRepository.get(userId, LocalDate.now());
+        if (existing != null) {
+            if (isAvailableUpdate(existing)) {
+                existing.setRestaurant(restaurantRepository.getReferenceById(restaurantId));
+                existing.setTime(LocalTime.now());
             }
-        });
-        if (existing.isEmpty()) {
+        } else {
             Voice voice = new Voice();
             voice.setUser(userRepository.getReferenceById(userId));
             voice.setRestaurant(restaurantRepository.getReferenceById(restaurantId));

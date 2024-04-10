@@ -31,8 +31,9 @@ public class UserRestaurantRestController extends AbstractRestaurantController {
     }
 
     @GetMapping("/voted-by-user")
-    public RestaurantVotedByUserDto getVotedByUser(@AuthenticationPrincipal AuthUser authUser) {
-        return super.getVotedByUser(authUser.id());
+    public ResponseEntity<RestaurantVotedByUserDto> getVotedByUser(@AuthenticationPrincipal AuthUser authUser) {
+        RestaurantVotedByUserDto result = super.getVotedByUser(authUser.id());
+        return result != null ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
     }
 
     @PostMapping(value = "{restaurantId}")
@@ -42,6 +43,6 @@ public class UserRestaurantRestController extends AbstractRestaurantController {
         URI uriOfVotedByUser = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/voted-by-user")
                 .build().toUri();
-        return ResponseEntity.created(uriOfVotedByUser).body(getVotedByUser(authUser));
+        return ResponseEntity.created(uriOfVotedByUser).body(getVotedByUser(authUser).getBody());
     }
 }

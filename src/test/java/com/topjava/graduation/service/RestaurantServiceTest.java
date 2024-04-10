@@ -16,6 +16,7 @@ import static com.topjava.graduation.web.meal.MealTestData.NOT_FOUND;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.ADMIN_ID;
 import static com.topjava.graduation.web.user.UserTestData.USER_1_ID;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
@@ -87,7 +88,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void vote() {
-        assertThrows(NotFoundException.class, () -> service.getVotedByUserForToday(ADMIN_ID));
+        assertNull(service.getVotedByUserForToday(ADMIN_ID));
 
         service.vote(ADMIN_ID, FRENCH_ID);
 
@@ -119,7 +120,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void getVotedByUserNotFound() {
-        assertThrows(NotFoundException.class, () -> service.getVotedByUserForToday(UserTestData.GUEST_ID));
+    void getNotVotedByUser() {
+        assertNull(service.getVotedByUserForToday(UserTestData.GUEST_ID));
     }
 }

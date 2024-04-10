@@ -15,8 +15,7 @@ import static com.topjava.graduation.util.RestaurantUtil.convertToViewDtos;
 import static com.topjava.graduation.util.RestaurantUtil.convertToVotedByUserDto;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.restaurant.UserRestaurantRestController.REST_URL;
-import static com.topjava.graduation.web.user.UserTestData.USER_1_MAIL;
-import static com.topjava.graduation.web.user.UserTestData.USER_3_MAIL;
+import static com.topjava.graduation.web.user.UserTestData.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,6 +63,14 @@ public class UserRestaurantRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(RESTAURANT_MATCHER.contentJson(italian));
+    }
+
+    @Test
+    @WithUserDetails(value = GUEST_MAIL)
+    void getNotVotedByUser() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "voted-by-user"))
+                .andExpect(status().isNotFound())
+                .andDo(print());
     }
 
     @Test

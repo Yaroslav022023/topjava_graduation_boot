@@ -13,8 +13,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
-    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.meals m WHERE m.date = :date")
-    List<Restaurant> findAllWithMealsForToday(LocalDate date);
+    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishes m WHERE m.date = :date")
+    List<Restaurant> findAllWithDishesForToday(LocalDate date);
 
     @Query("SELECT new com.topjava.graduation.dto.RestaurantWithNumberVoicesDto(r.id, r.name, COUNT(v.id)) " +
             "FROM Restaurant r " +

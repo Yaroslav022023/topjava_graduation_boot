@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.topjava.graduation.exception.ErrorType.BAD_DATA;
-import static com.topjava.graduation.web.meal.MealTestData.NOT_FOUND;
+import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
 import static com.topjava.graduation.web.user.AdminUserRestController.REST_URL;
 import static com.topjava.graduation.web.user.UniqueMailValidator.EXCEPTION_DUPLICATE_EMAIL;
 import static com.topjava.graduation.web.user.UserTestData.*;

@@ -5,7 +5,7 @@ import com.topjava.graduation.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static com.topjava.graduation.web.meal.MealTestData.NOT_FOUND;
+import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
 import static com.topjava.graduation.web.user.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 

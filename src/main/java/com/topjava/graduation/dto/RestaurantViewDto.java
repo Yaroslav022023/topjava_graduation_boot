@@ -8,10 +8,10 @@ import java.util.Set;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class RestaurantViewDto extends NamedDto {
-    Set<MealViewDto> meals;
+    Set<DishViewDto> dishes;
 
-    public RestaurantViewDto(Integer id, String name, Set<MealViewDto> meals) {
+    public RestaurantViewDto(Integer id, String name, Set<DishViewDto> dishes) {
         super(id, name);
-        this.meals = meals;
+        this.dishes = dishes;
     }
 }

@@ -19,7 +19,7 @@ import static com.topjava.graduation.exception.ErrorType.BAD_DATA;
 import static com.topjava.graduation.exception.ErrorType.DATA_CONFLICT;
 import static com.topjava.graduation.util.JsonUtil.writeValue;
 import static com.topjava.graduation.util.RestaurantUtil.convertToViewDtos;
-import static com.topjava.graduation.web.meal.MealTestData.NOT_FOUND;
+import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
 import static com.topjava.graduation.web.restaurant.AdminRestaurantRestController.REST_URL;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.ADMIN_MAIL;
@@ -46,7 +46,7 @@ public class AdminRestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void getAllWithMealsForToday() throws Exception {
+    void getAllWithDishsForToday() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())

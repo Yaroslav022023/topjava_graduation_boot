@@ -40,8 +40,8 @@ public class RestaurantService {
     }
 
     @Cacheable("restaurants")
-    public List<RestaurantViewDto> getAllWithMealsForToday() {
-        return convertToViewDtos(restaurantRepository.findAllWithMealsForToday(LocalDate.now()));
+    public List<RestaurantViewDto> getAllWithdishsForToday() {
+        return convertToViewDtos(restaurantRepository.findAllWithDishesForToday(LocalDate.now()));
     }
 
     public List<RestaurantWithNumberVoicesDto> getAllWithNumberVoicesForToday() {

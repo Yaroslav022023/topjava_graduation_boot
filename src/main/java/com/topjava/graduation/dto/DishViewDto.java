@@ -5,10 +5,10 @@ import lombok.Value;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class MealViewDto extends NamedDto {
+public class DishViewDto extends NamedDto {
     long price;
 
-    public MealViewDto(Integer id, String name, long price) {
+    public DishViewDto(Integer id, String name, long price) {
         super(id, name);
         this.price = price;
     }

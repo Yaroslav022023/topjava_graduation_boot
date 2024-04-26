@@ -22,8 +22,8 @@ public class AdminRestaurantRestController extends AbstractRestaurantController 
 
     @Override
     @GetMapping
-    public List<RestaurantViewDto> getAllWithMealsForToday() {
-        return super.getAllWithMealsForToday();
+    public List<RestaurantViewDto> getAllWithDishesForToday() {
+        return super.getAllWithDishesForToday();
     }
 
     @Override

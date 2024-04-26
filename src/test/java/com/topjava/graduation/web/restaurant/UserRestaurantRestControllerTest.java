@@ -28,7 +28,7 @@ public class UserRestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = USER_1_MAIL)
-    void getAllWithMealsForToday() throws Exception {
+    void getAllWithDishsForToday() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())

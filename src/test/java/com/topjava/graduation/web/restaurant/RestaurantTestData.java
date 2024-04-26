@@ -5,7 +5,7 @@ import com.topjava.graduation.dto.RestaurantViewDto;
 import com.topjava.graduation.dto.RestaurantVotedByUserDto;
 import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
-import com.topjava.graduation.web.meal.MealTestData;
+import com.topjava.graduation.web.dish.DishTestData;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,13 +14,13 @@ import static com.topjava.graduation.model.BaseEntity.START_SEQ;
 
 public class RestaurantTestData {
     public static final MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER =
-            MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "meals");
+            MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
     public static final MatcherFactory.Matcher<RestaurantViewDto> RESTAURANT_VIEW_DTO_MATCHER =
             MatcherFactory.usingEqualsComparator(RestaurantViewDto.class);
     public static final MatcherFactory.Matcher<RestaurantWithNumberVoicesDto> RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER =
             MatcherFactory.usingEqualsComparator(RestaurantWithNumberVoicesDto.class);
     public static final MatcherFactory.Matcher<RestaurantVotedByUserDto> RESTAURANT_VOTED_BY_USER_DTO_MATCHER =
-            MatcherFactory.usingIgnoringFieldsComparator(RestaurantVotedByUserDto.class, "meals");
+            MatcherFactory.usingIgnoringFieldsComparator(RestaurantVotedByUserDto.class, "dishes");
 
     public static final int ITALIAN_ID = START_SEQ + 5;
     public static final int ASIAN_ID = START_SEQ + 6;
@@ -34,9 +34,9 @@ public class RestaurantTestData {
     public static final List<Restaurant> restaurantsSort = List.of(italian, asian, french);
 
     static {
-        italian.setMeals(new HashSet<>(MealTestData.italian_meals));
-        asian.setMeals(new HashSet<>(MealTestData.asian_meals));
-        french.setMeals(new HashSet<>(MealTestData.french_meals));
+        italian.setDishes(new HashSet<>(DishTestData.ITALIAN_DISHES));
+        asian.setDishes(new HashSet<>(DishTestData.ASIAN_DISHES));
+        french.setDishes(new HashSet<>(DishTestData.FRENCH_DISHES));
     }
 
     public static final List<RestaurantWithNumberVoicesDto> restaurantsWithNumberVoices = List.of(

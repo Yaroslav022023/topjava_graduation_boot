@@ -18,15 +18,15 @@ import java.time.LocalDate;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "meal",
-        indexes = {@Index(columnList = "restaurant_id, date", name = "meal_restaurant_datetime_idx")},
+@Table(name = "dish",
+        indexes = {@Index(columnList = "restaurant_id, date", name = "dish_restaurant_datetime_idx")},
         uniqueConstraints =
                 {@UniqueConstraint(columnNames =
-                        {"restaurant_id", "date", "name"}, name = "meal_restaurant_id_date_name_idx")})
+                        {"restaurant_id", "date", "name"}, name = "dish_restaurant_id_date_name_idx")})
 @NoArgsConstructor
 @Setter
 @Getter
-public class Meal extends NamedEntity {
+public class Dish extends NamedEntity {
     @Column(name = "date", nullable = false)
     @NotNull
     private LocalDate date;
@@ -43,7 +43,7 @@ public class Meal extends NamedEntity {
     @Schema(hidden = true)
     private Restaurant restaurant;
 
-    public Meal(Integer id, LocalDate date, String name, long price) {
+    public Dish(Integer id, LocalDate date, String name, long price) {
         super(id, name);
         this.date = date;
         this.price = price;
@@ -51,7 +51,7 @@ public class Meal extends NamedEntity {
 
     @Override
     public String toString() {
-        return "Meal{" +
+        return "Dish{" +
                 "id=" + id +
                 ", name=" + name +
                 ", date=" + date +

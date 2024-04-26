@@ -17,7 +17,7 @@ VALUES (100005, 'Italian'),
        (100006, 'Asian'),
        (100007, 'French');
 
-INSERT INTO meal (restaurant_id, id, date, name, price)
+INSERT INTO dish (restaurant_id, id, date, name, price)
 VALUES (100005, 100008, CURRENT_DATE, 'Steak Philadelphia', 1600),
        (100005, 100009, CURRENT_DATE, 'Margherita Pizza', 300),
        (100005, 100010, CURRENT_DATE, 'Pasta', 700),

@@ -12,7 +12,7 @@ public class RestaurantUtil {
 
     public static List<RestaurantViewDto> convertToViewDtos(List<Restaurant> restaurants) {
         return restaurants.stream()
-                .map(r -> new RestaurantViewDto(r.getId(), r.getName(), MealsUtil.getTos(r.getMeals())))
+                .map(r -> new RestaurantViewDto(r.getId(), r.getName(), DishesUtil.getTos(r.getDishes())))
                 .toList();
     }
 

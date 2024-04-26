@@ -1,8 +1,8 @@
-package com.topjava.graduation.web.meal;
+package com.topjava.graduation.web.dish;
 
 import com.topjava.graduation.View;
-import com.topjava.graduation.model.Meal;
-import com.topjava.graduation.service.MealService;
+import com.topjava.graduation.model.Dish;
+import com.topjava.graduation.service.DishService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -19,34 +19,34 @@ import static com.topjava.graduation.util.validation.ValidationUtil.assureIdCons
 import static com.topjava.graduation.util.validation.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = AdminMealRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminMealRestController {
-    static final String REST_URL = "/api/admin/restaurants/{restaurantId}/meals";
+@RequestMapping(value = AdminDishRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminDishRestController {
+    static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes";
     protected final Logger log = LoggerFactory.getLogger(getClass());
-    private final MealService service;
+    private final DishService service;
 
-    public AdminMealRestController(MealService service) {
+    public AdminDishRestController(DishService service) {
         this.service = service;
     }
 
     @GetMapping()
-    public List<Meal> getAll(@PathVariable int restaurantId) {
+    public List<Dish> getAll(@PathVariable int restaurantId) {
         log.info("getAll");
         return service.getAll(restaurantId);
     }
 
     @GetMapping("/{id}")
-    public Meal get(@PathVariable int restaurantId, @PathVariable int id) {
-        log.info("get meal={} for restaurant={}", id, restaurantId);
+    public Dish get(@PathVariable int restaurantId, @PathVariable int id) {
+        log.info("get dish={} for restaurant={}", id, restaurantId);
         return service.get(id, restaurantId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Meal> createWithLocation(@Validated(View.Web.class) @RequestBody Meal meal,
+    public ResponseEntity<Dish> createWithLocation(@Validated(View.Web.class) @RequestBody Dish dish,
                                                    @PathVariable int restaurantId) {
-        log.info("create {} for restaurant={}", meal, restaurantId);
-        checkNew(meal);
-        Meal created = service.save(meal, restaurantId);
+        log.info("create {} for restaurant={}", dish, restaurantId);
+        checkNew(dish);
+        Dish created = service.save(dish, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(restaurantId, created.getId()).toUri();
@@ -55,11 +55,11 @@ public class AdminMealRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody Meal meal, @PathVariable int id,
+    public void update(@Validated(View.Web.class) @RequestBody Dish dish, @PathVariable int id,
                        @PathVariable int restaurantId) {
-        log.info("update {} for restaurant={}", meal, restaurantId);
-        assureIdConsistent(meal, id);
-        service.save(meal, restaurantId);
+        log.info("update {} for restaurant={}", dish, restaurantId);
+        assureIdConsistent(dish, id);
+        service.save(dish, restaurantId);
     }
 
     @DeleteMapping("/{id}")

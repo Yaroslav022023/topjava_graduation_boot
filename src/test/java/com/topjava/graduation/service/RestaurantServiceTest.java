@@ -12,7 +12,7 @@ import java.util.List;
 
 import static com.topjava.graduation.util.RestaurantUtil.convertToViewDtos;
 import static com.topjava.graduation.util.RestaurantUtil.convertToVotedByUserDto;
-import static com.topjava.graduation.web.meal.MealTestData.NOT_FOUND;
+import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.ADMIN_ID;
 import static com.topjava.graduation.web.user.UserTestData.USER_1_ID;
@@ -76,8 +76,8 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void getAllWithMealsForToday() {
-        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(service.getAllWithMealsForToday(), convertToViewDtos(restaurantsSort));
+    void getAllWithDishsForToday() {
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(service.getAllWithdishsForToday(), convertToViewDtos(restaurantsSort));
     }
 
     @Test

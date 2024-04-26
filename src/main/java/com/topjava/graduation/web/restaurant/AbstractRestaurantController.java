@@ -24,9 +24,9 @@ public class AbstractRestaurantController {
         return service.getAll();
     }
 
-    public List<RestaurantViewDto> getAllWithMealsForToday() {
-        log.info("getAllWithMealsForToday");
-        return service.getAllWithMealsForToday();
+    public List<RestaurantViewDto> getAllWithDishesForToday() {
+        log.info("getAllWithDishesForToday");
+        return service.getAllWithdishsForToday();
     }
 
     public List<RestaurantWithNumberVoicesDto> getAllWithNumberVoicesForToday() {

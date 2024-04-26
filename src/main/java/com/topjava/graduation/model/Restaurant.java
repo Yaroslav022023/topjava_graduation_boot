@@ -22,7 +22,7 @@ public class Restaurant extends NamedEntity {
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
     @JsonManagedReference
     @Schema(hidden = true)
-    private Set<Meal> meals;
+    private Set<Dish> dishes;
 
     public Restaurant(Integer id, String name) {
         super(id, name);

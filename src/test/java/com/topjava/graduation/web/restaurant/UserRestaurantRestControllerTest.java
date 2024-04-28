@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.topjava.graduation.util.RestaurantUtil.asViewDtos;
+import static com.topjava.graduation.util.RestaurantUtil.asWithDishesViewDtos;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.restaurant.UserRestaurantRestController.REST_URL;
 import static com.topjava.graduation.web.user.UserTestData.GUEST_MAIL;
@@ -25,8 +25,8 @@ public class UserRestaurantRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_VIEW_DTO_MATCHER
-                        .contentJson(asViewDtos(restaurantsSort)));
+                .andExpect(RESTAURANT_WITH_DISHES_VIEW_DTO_MATCHER
+                        .contentJson(asWithDishesViewDtos(restaurantsSort)));
     }
 
     @Test

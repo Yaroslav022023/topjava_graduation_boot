@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalTime;
 
-import static com.topjava.graduation.util.RestaurantUtil.asVotedByUserDto;
+import static com.topjava.graduation.util.RestaurantUtil.asViewDto;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,8 +27,8 @@ public class VoiceServiceTest extends AbstractServiceTest {
             assertNull(service.get(ADMIN_ID));
             service.save(ADMIN_ID, new VoiceDto(FRENCH_ID));
 
-            RESTAURANT_VOTED_BY_USER_DTO_MATCHER.assertMatch(
-                    restaurantService.getVotedByUserForToday(ADMIN_ID), asVotedByUserDto(french));
+            RESTAURANT_VIEW_DTO_MATCHER.assertMatch(
+                    restaurantService.getVotedByUserForToday(ADMIN_ID), asViewDto(french));
             RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(
                     restaurantService.getAllWithTodayNumberVoices(), restaurantsWithNumberVoicesUpdated);
 
@@ -43,8 +43,8 @@ public class VoiceServiceTest extends AbstractServiceTest {
         if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
             service.save(USER_1_ID, new VoiceDto(FRENCH_ID));
 
-            RESTAURANT_VOTED_BY_USER_DTO_MATCHER.assertMatch(
-                    restaurantService.getVotedByUserForToday(USER_1_ID), asVotedByUserDto(french));
+            RESTAURANT_VIEW_DTO_MATCHER.assertMatch(
+                    restaurantService.getVotedByUserForToday(USER_1_ID), asViewDto(french));
             RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(
                     restaurantService.getAllWithTodayNumberVoices(), restaurantsWithNumberVoicesUpdated_2);
 

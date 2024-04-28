@@ -29,9 +29,10 @@ public class VoiceRestController {
     }
 
     @GetMapping
-    public VoiceViewDto get(@AuthenticationPrincipal AuthUser authUser) {
+    public ResponseEntity<VoiceViewDto> get(@AuthenticationPrincipal AuthUser authUser) {
         log.info("get voice of user={}", authUser.id());
-        return service.get(authUser.id());
+        VoiceViewDto voice = service.get(authUser.id());
+        return voice != null ? ResponseEntity.ok(voice) : ResponseEntity.noContent().build();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

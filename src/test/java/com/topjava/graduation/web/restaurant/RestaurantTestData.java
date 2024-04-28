@@ -2,7 +2,7 @@ package com.topjava.graduation.web.restaurant;
 
 import com.topjava.graduation.MatcherFactory;
 import com.topjava.graduation.dto.RestaurantViewDto;
-import com.topjava.graduation.dto.RestaurantVotedByUserDto;
+import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.web.dish.DishTestData;
@@ -16,11 +16,11 @@ public class RestaurantTestData {
     public static final MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER =
             MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
     public static final MatcherFactory.Matcher<RestaurantViewDto> RESTAURANT_VIEW_DTO_MATCHER =
-            MatcherFactory.usingEqualsComparator(RestaurantViewDto.class);
+            MatcherFactory.usingIgnoringFieldsComparator(RestaurantViewDto.class);
+    public static final MatcherFactory.Matcher<RestaurantWithDishesViewDto> RESTAURANT_WITH_DISHES_VIEW_DTO_MATCHER =
+            MatcherFactory.usingEqualsComparator(RestaurantWithDishesViewDto.class);
     public static final MatcherFactory.Matcher<RestaurantWithNumberVoicesDto> RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER =
             MatcherFactory.usingEqualsComparator(RestaurantWithNumberVoicesDto.class);
-    public static final MatcherFactory.Matcher<RestaurantVotedByUserDto> RESTAURANT_VOTED_BY_USER_DTO_MATCHER =
-            MatcherFactory.usingIgnoringFieldsComparator(RestaurantVotedByUserDto.class, "dishes");
 
     public static final int ITALIAN_ID = START_SEQ + 5;
     public static final int ASIAN_ID = START_SEQ + 6;

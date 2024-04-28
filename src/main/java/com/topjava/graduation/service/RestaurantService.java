@@ -1,7 +1,7 @@
 package com.topjava.graduation.service;
 
+import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantViewDto;
-import com.topjava.graduation.dto.RestaurantVotedByUserDto;
 import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.model.Voice;
@@ -16,8 +16,7 @@ import org.springframework.util.Assert;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.topjava.graduation.util.RestaurantUtil.asViewDtos;
-import static com.topjava.graduation.util.RestaurantUtil.asVotedByUserDto;
+import static com.topjava.graduation.util.RestaurantUtil.*;
 
 @Service
 public class RestaurantService {
@@ -29,27 +28,27 @@ public class RestaurantService {
         this.voiceRepository = voiceRepository;
     }
 
-    public List<Restaurant> getAll() {
-        return restaurantRepository.findAll();
+    public List<RestaurantViewDto> getAll() {
+        return asViewDtos(restaurantRepository.findAll());
     }
 
     @Cacheable("restaurants")
-    public List<RestaurantViewDto> getAllWithTodayDishes() {
-        return asViewDtos(restaurantRepository.findAllWithTodayDishes(LocalDate.now()));
+    public List<RestaurantWithDishesViewDto> getAllWithTodayDishes() {
+        return asWithDishesViewDtos(restaurantRepository.findAllWithTodayDishes(LocalDate.now()));
     }
 
     public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
         return restaurantRepository.findAllWithTodayNumberVoices(LocalDate.now());
     }
 
-    public Restaurant get(int id) {
-        return restaurantRepository.get(id);
+    public RestaurantViewDto get(int id) {
+        Restaurant restaurant = restaurantRepository.get(id);
+        return restaurant != null ? asViewDto(restaurant) : null;
     }
 
-    public RestaurantVotedByUserDto getVotedByUserForToday(int userId) {
+    public RestaurantViewDto getVotedByUserForToday(int userId) {
         Voice voice = voiceRepository.get(userId, LocalDate.now());
-        if (voice == null) return null;
-        return asVotedByUserDto(voice.getRestaurant());
+        return voice != null ? asViewDto(voice.getRestaurant()) : null;
     }
 
     @Transactional

@@ -14,29 +14,30 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "voice",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "user_id_date_idx")},
-        indexes = {@Index(columnList = "date", name = "idx_voice_date")})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "vote_date"}, name = "user_id_vote_date_idx")},
+        indexes = {@Index(columnList = "vote_date", name = "idx_vote_date")})
 @Setter
 @Getter
 public class Voice extends BaseEntity {
-    @Column(name = "date", nullable = false)
+    @Column(name = "vote_date", nullable = false)
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate date;
 
-    @Column(name = "time", nullable = false)
+    @Column(name = "vote_time", nullable = false)
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalTime time;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull(groups = View.Persist.class)
     private User user;
 

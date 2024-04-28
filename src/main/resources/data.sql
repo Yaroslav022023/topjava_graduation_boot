@@ -17,7 +17,7 @@ VALUES (100005, 'Italian'),
        (100006, 'Asian'),
        (100007, 'French');
 
-INSERT INTO dish (restaurant_id, id, date, name, price)
+INSERT INTO dish (restaurant_id, id, menu_date, name, price)
 VALUES (100005, 100008, CURRENT_DATE, 'Steak Philadelphia', 1600),
        (100005, 100009, CURRENT_DATE, 'Margherita Pizza', 300),
        (100005, 100010, CURRENT_DATE, 'Pasta', 700),
@@ -28,7 +28,7 @@ VALUES (100005, 100008, CURRENT_DATE, 'Steak Philadelphia', 1600),
        (100007, 100015, CURRENT_DATE, 'Ratatouille', 680),
        (100007, 100016, CURRENT_DATE, 'Beef Bourguignon', 530);
 
-INSERT INTO voice (user_id, restaurant_id, id, date, time)
+INSERT INTO voice (user_id, restaurant_id, id, vote_date, vote_time)
 VALUES (100001, 100005, 100017, CURRENT_DATE, '9:00:00'),
        (100002, 100005, 100018, CURRENT_DATE, '10:50:00'),
        (100003, 100006, 100019, CURRENT_DATE, '10:59:00');

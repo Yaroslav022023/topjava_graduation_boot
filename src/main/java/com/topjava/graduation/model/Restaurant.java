@@ -19,6 +19,7 @@ import java.util.Set;
 @Setter
 @Getter
 public class Restaurant extends NamedEntity {
+
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
     @JsonManagedReference
     @Schema(hidden = true)

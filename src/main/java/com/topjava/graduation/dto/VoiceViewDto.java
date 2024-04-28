@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 @Value
 public class VoiceViewDto {
     LocalDateTime dateTime;
-    RestaurantVotedByUserDto restaurant;
+    RestaurantViewDto restaurant;
 }

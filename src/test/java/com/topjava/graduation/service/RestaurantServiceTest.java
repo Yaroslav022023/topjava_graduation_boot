@@ -1,16 +1,17 @@
 package com.topjava.graduation.service;
 
+import com.topjava.graduation.dto.RestaurantViewDto;
 import com.topjava.graduation.exception.NotFoundException;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.web.user.UserTestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.topjava.graduation.util.RestaurantUtil.asViewDtos;
-import static com.topjava.graduation.util.RestaurantUtil.asVotedByUserDto;
+import static com.topjava.graduation.util.RestaurantUtil.*;
 import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.USER_1_ID;
@@ -24,14 +25,14 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void getAll() {
-        List<Restaurant> actual = service.getAll();
-        actual.sort(Comparator.comparingInt(Restaurant::getId));
-        RESTAURANT_MATCHER.assertMatch(actual, restaurantsSort);
+        List<RestaurantViewDto> actual = new ArrayList<>(service.getAll());
+        actual.sort(Comparator.comparingInt(RestaurantViewDto::getId));
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(actual, asViewDtos(restaurantsSort));
     }
 
     @Test
     void get() {
-        RESTAURANT_MATCHER.assertMatch(service.get(ITALIAN_ID), italian);
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(service.get(ITALIAN_ID), asViewDto(italian));
     }
 
     @Test
@@ -46,14 +47,14 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         Restaurant newRestaurant = getNew();
         newRestaurant.setId(newId);
         RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
-        RESTAURANT_MATCHER.assertMatch(service.get(newId), newRestaurant);
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(service.get(newId), asViewDto(newRestaurant));
     }
 
     @Test
     void update() {
         Restaurant updated = getUpdated();
         service.save(updated);
-        RESTAURANT_MATCHER.assertMatch(service.get(ITALIAN_ID), getUpdated());
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(service.get(ITALIAN_ID), asViewDto(getUpdated()));
     }
 
     @Test
@@ -75,7 +76,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void getAllWithDishsForToday() {
-        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(service.getAllWithTodayDishes(), asViewDtos(restaurantsSort));
+        RESTAURANT_WITH_DISHES_VIEW_DTO_MATCHER.assertMatch(service.getAllWithTodayDishes(), asWithDishesViewDtos(restaurantsSort));
     }
 
     @Test
@@ -86,8 +87,8 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void getVotedByUser() {
-        RESTAURANT_VOTED_BY_USER_DTO_MATCHER.assertMatch(
-                service.getVotedByUserForToday(USER_1_ID), asVotedByUserDto(italian));
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(
+                service.getVotedByUserForToday(USER_1_ID), asViewDto(italian));
     }
 
     @Test

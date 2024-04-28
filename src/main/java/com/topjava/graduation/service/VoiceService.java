@@ -6,11 +6,13 @@ import com.topjava.graduation.model.Voice;
 import com.topjava.graduation.repository.RestaurantRepository;
 import com.topjava.graduation.repository.UserRepository;
 import com.topjava.graduation.repository.VoiceRepository;
+import com.topjava.graduation.util.VoiceUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import static com.topjava.graduation.util.VoiceUtil.asDto;
 import static com.topjava.graduation.util.VoiceUtil.isAvailableToSave;
@@ -29,7 +31,9 @@ public class VoiceService {
     }
 
     public VoiceViewDto get(int userId) {
-        return asDto(voiceRepository.get(userId, LocalDate.now()));
+        return Optional.ofNullable(voiceRepository.get(userId, LocalDate.now()))
+                .map(VoiceUtil::asDto)
+                .orElse(null);
     }
 
     @Transactional

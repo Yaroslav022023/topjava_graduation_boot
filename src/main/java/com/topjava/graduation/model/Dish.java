@@ -19,15 +19,15 @@ import java.time.LocalDate;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "dish",
-        indexes = {@Index(columnList = "restaurant_id, date", name = "dish_restaurant_datetime_idx")},
+        indexes = {@Index(columnList = "restaurant_id, menu_date", name = "dish_restaurant_menu_date_idx")},
         uniqueConstraints =
                 {@UniqueConstraint(columnNames =
-                        {"restaurant_id", "date", "name"}, name = "dish_restaurant_id_date_name_idx")})
+                        {"restaurant_id", "menu_date", "name"}, name = "dish_restaurant_id_menu_date_name_idx")})
 @NoArgsConstructor
 @Setter
 @Getter
 public class Dish extends NamedEntity {
-    @Column(name = "date", nullable = false)
+    @Column(name = "menu_date", nullable = false)
     @NotNull
     private LocalDate date;
 

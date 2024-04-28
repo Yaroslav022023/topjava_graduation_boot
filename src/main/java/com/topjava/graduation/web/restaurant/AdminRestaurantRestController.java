@@ -2,6 +2,7 @@ package com.topjava.graduation.web.restaurant;
 
 import com.topjava.graduation.View;
 import com.topjava.graduation.dto.RestaurantViewDto;
+import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
 import org.springframework.http.HttpStatus;
@@ -21,13 +22,13 @@ public class AdminRestaurantRestController extends AbstractRestaurantController 
 
     @Override
     @GetMapping
-    public List<Restaurant> getAll() {
+    public List<RestaurantViewDto> getAll() {
         return super.getAll();
     }
 
     @Override
     @GetMapping("/with-today-dishes")
-    public List<RestaurantViewDto> getAllWithTodayDishes() {
+    public List<RestaurantWithDishesViewDto> getAllWithTodayDishes() {
         return super.getAllWithTodayDishes();
     }
 
@@ -39,7 +40,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantController 
 
     @Override
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable int id) {
+    public RestaurantViewDto get(@PathVariable int id) {
         return super.get(id);
     }
 

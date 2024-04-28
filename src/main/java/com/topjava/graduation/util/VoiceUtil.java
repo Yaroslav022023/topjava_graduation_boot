@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static com.topjava.graduation.util.RestaurantUtil.asVotedByUserDto;
+import static com.topjava.graduation.util.RestaurantUtil.asViewDto;
 
 @UtilityClass
 public class VoiceUtil {
@@ -23,6 +23,6 @@ public class VoiceUtil {
     public static VoiceViewDto asDto(Voice voice) {
         return new VoiceViewDto(
                 LocalDateTime.of(voice.getDate(), voice.getTime()),
-                asVotedByUserDto(voice.getRestaurant()));
+                asViewDto(voice.getRestaurant()));
     }
 }

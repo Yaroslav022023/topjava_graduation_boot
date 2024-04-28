@@ -1,7 +1,7 @@
 package com.topjava.graduation.web.restaurant;
 
+import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantViewDto;
-import com.topjava.graduation.dto.RestaurantVotedByUserDto;
 import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.service.RestaurantService;
@@ -19,12 +19,12 @@ public class AbstractRestaurantController {
     @Autowired
     private RestaurantService service;
 
-    public List<Restaurant> getAll() {
+    public List<RestaurantViewDto> getAll() {
         log.info("getAll");
         return service.getAll();
     }
 
-    public List<RestaurantViewDto> getAllWithTodayDishes() {
+    public List<RestaurantWithDishesViewDto> getAllWithTodayDishes() {
         log.info("getAllWithDishesForToday");
         return service.getAllWithTodayDishes();
     }
@@ -34,12 +34,12 @@ public class AbstractRestaurantController {
         return service.getAllWithTodayNumberVoices();
     }
 
-    public Restaurant get(int id) {
+    public RestaurantViewDto get(int id) {
         log.info("get {}", id);
         return service.get(id);
     }
 
-    public RestaurantVotedByUserDto getVotedByUser(int id) {
+    public RestaurantViewDto getVotedByUser(int id) {
         log.info("getVotedByUser {}", id);
         return service.getVotedByUserForToday(id);
     }

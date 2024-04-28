@@ -17,7 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.topjava.graduation.exception.ErrorType.BAD_DATA;
 import static com.topjava.graduation.exception.ErrorType.DATA_CONFLICT;
 import static com.topjava.graduation.util.JsonUtil.writeValue;
-import static com.topjava.graduation.util.RestaurantUtil.asViewDtos;
+import static com.topjava.graduation.util.RestaurantUtil.asViewDto;
+import static com.topjava.graduation.util.RestaurantUtil.asWithDishesViewDtos;
 import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
 import static com.topjava.graduation.web.restaurant.AdminRestaurantRestController.REST_URL;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
@@ -50,7 +51,7 @@ public class AdminRestaurantRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_VIEW_DTO_MATCHER.contentJson(asViewDtos(restaurantsSort)));
+                .andExpect(RESTAURANT_WITH_DISHES_VIEW_DTO_MATCHER.contentJson(asWithDishesViewDtos(restaurantsSort)));
     }
 
     @Test
@@ -103,7 +104,7 @@ public class AdminRestaurantRestControllerTest extends AbstractControllerTest {
         int newId = created.id();
         newRestaurant.setId(newId);
         RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
-        RESTAURANT_MATCHER.assertMatch(service.get(newId), newRestaurant);
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(service.get(newId), asViewDto(newRestaurant));
     }
 
     @Test
@@ -154,7 +155,7 @@ public class AdminRestaurantRestControllerTest extends AbstractControllerTest {
                 .content(writeValue(getUpdated())))
                 .andExpect(status().isNoContent())
                 .andDo(print());
-        RESTAURANT_MATCHER.assertMatch(service.get(italian.id()), getUpdated());
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(service.get(italian.id()), asViewDto(getUpdated()));
     }
 
     @Test

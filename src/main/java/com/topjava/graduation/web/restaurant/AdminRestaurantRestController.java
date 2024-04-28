@@ -2,7 +2,6 @@ package com.topjava.graduation.web.restaurant;
 
 import com.topjava.graduation.View;
 import com.topjava.graduation.dto.RestaurantViewDto;
-import com.topjava.graduation.dto.RestaurantVotedByUserDto;
 import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
 import org.springframework.http.HttpStatus;
@@ -22,32 +21,26 @@ public class AdminRestaurantRestController extends AbstractRestaurantController 
 
     @Override
     @GetMapping
-    public List<RestaurantViewDto> getAllWithDishesForToday() {
-        return super.getAllWithDishesForToday();
-    }
-
-    @Override
-    @GetMapping("/all")
     public List<Restaurant> getAll() {
         return super.getAll();
     }
 
     @Override
+    @GetMapping("/with-today-dishes")
+    public List<RestaurantViewDto> getAllWithTodayDishes() {
+        return super.getAllWithTodayDishes();
+    }
+
+    @Override
     @GetMapping("/number-voices")
-    public List<RestaurantWithNumberVoicesDto> getAllWithNumberVoicesForToday() {
-        return super.getAllWithNumberVoicesForToday();
+    public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
+        return super.getAllWithTodayNumberVoices();
     }
 
     @Override
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
-    }
-
-    @Override
-    @GetMapping("/voted-by-user/{id}")
-    public RestaurantVotedByUserDto getVotedByUser(@PathVariable int id) {
-        return super.getVotedByUser(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

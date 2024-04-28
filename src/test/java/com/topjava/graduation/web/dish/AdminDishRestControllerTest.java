@@ -103,7 +103,7 @@ public class AdminDishRestControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalidPriceLessThanMin() throws Exception {
         Dish newDish = getNew();
-        newDish.setPrice(4);
+        newDish.setPrice(0);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(newDish)))
@@ -114,9 +114,9 @@ public class AdminDishRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void createInvalidPriceMoreThanMax() throws Exception {
+    void createInvalidPriceLessThanMin_2() throws Exception {
         Dish newDish = getNew();
-        newDish.setPrice(2001);
+        newDish.setPrice(-1);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(newDish)))
@@ -182,7 +182,7 @@ public class AdminDishRestControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void updateInvalidPriceLessThanMin() throws Exception {
         Dish updated = getUpdated();
-        updated.setPrice(4);
+        updated.setPrice(0);
         perform(MockMvcRequestBuilders.put(REST_URL_SLASH + italian_dish_1.id())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(updated)))
@@ -193,9 +193,9 @@ public class AdminDishRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void updateInvalidPriceMoreThanMax() throws Exception {
+    void updateInvalidPriceLessThanMin_2() throws Exception {
         Dish updated = getUpdated();
-        updated.setPrice(2001);
+        updated.setPrice(-1);
         perform(MockMvcRequestBuilders.put(REST_URL_SLASH + italian_dish_1.id())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(updated)))

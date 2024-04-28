@@ -7,10 +7,10 @@ import com.topjava.graduation.web.AuthUser;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,29 +20,19 @@ public class UserRestaurantRestController extends AbstractRestaurantController {
 
     @Override
     @GetMapping
-    public List<RestaurantViewDto> getAllWithDishesForToday() {
-        return super.getAllWithDishesForToday();
+    public List<RestaurantViewDto> getAllWithTodayDishes() {
+        return super.getAllWithTodayDishes();
     }
 
     @Override
     @GetMapping("/number-voices")
-    public List<RestaurantWithNumberVoicesDto> getAllWithNumberVoicesForToday() {
-        return super.getAllWithNumberVoicesForToday();
+    public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
+        return super.getAllWithTodayNumberVoices();
     }
 
     @GetMapping("/voted-by-user")
     public ResponseEntity<RestaurantVotedByUserDto> getVotedByUser(@AuthenticationPrincipal AuthUser authUser) {
         RestaurantVotedByUserDto result = super.getVotedByUser(authUser.id());
         return result != null ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
-    }
-
-    @PostMapping(value = "{restaurantId}")
-    public ResponseEntity<RestaurantVotedByUserDto> vote(@PathVariable int restaurantId,
-                                                         @AuthenticationPrincipal AuthUser authUser) {
-        super.vote(authUser.id(), restaurantId);
-        URI uriOfVotedByUser = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/voted-by-user")
-                .build().toUri();
-        return ResponseEntity.created(uriOfVotedByUser).body(getVotedByUser(authUser).getBody());
     }
 }

@@ -24,14 +24,14 @@ public class AbstractRestaurantController {
         return service.getAll();
     }
 
-    public List<RestaurantViewDto> getAllWithDishesForToday() {
+    public List<RestaurantViewDto> getAllWithTodayDishes() {
         log.info("getAllWithDishesForToday");
-        return service.getAllWithdishsForToday();
+        return service.getAllWithTodayDishes();
     }
 
-    public List<RestaurantWithNumberVoicesDto> getAllWithNumberVoicesForToday() {
+    public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
         log.info("getAllWithNumberVoicesForToday");
-        return service.getAllWithNumberVoicesForToday();
+        return service.getAllWithTodayNumberVoices();
     }
 
     public Restaurant get(int id) {
@@ -59,10 +59,5 @@ public class AbstractRestaurantController {
     public void delete(int id) {
         log.info("delete {}", id);
         service.delete(id);
-    }
-
-    public void vote(int userId, int restaurantId) {
-        log.info("vote from user {} for restaurant {}", userId, restaurantId);
-        service.vote(userId, restaurantId);
     }
 }

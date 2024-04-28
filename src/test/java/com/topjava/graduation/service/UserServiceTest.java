@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
-    protected UserService service;
+    private UserService service;
 
     @Test
     void getAll() {

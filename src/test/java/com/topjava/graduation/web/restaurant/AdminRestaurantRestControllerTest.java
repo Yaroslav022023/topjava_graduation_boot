@@ -5,7 +5,6 @@ import com.topjava.graduation.exception.NotFoundException;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.service.RestaurantService;
 import com.topjava.graduation.web.AbstractControllerTest;
-import com.topjava.graduation.web.user.UserTestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.topjava.graduation.exception.ErrorType.BAD_DATA;
 import static com.topjava.graduation.exception.ErrorType.DATA_CONFLICT;
 import static com.topjava.graduation.util.JsonUtil.writeValue;
-import static com.topjava.graduation.util.RestaurantUtil.convertToViewDtos;
+import static com.topjava.graduation.util.RestaurantUtil.asViewDtos;
 import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
 import static com.topjava.graduation.web.restaurant.AdminRestaurantRestController.REST_URL;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
@@ -37,7 +36,7 @@ public class AdminRestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "all"))
+        perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -46,17 +45,17 @@ public class AdminRestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void getAllWithDishsForToday() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+    void getAllWithTodayDishes() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "with-today-dishes"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_VIEW_DTO_MATCHER.contentJson(convertToViewDtos(restaurantsSort)));
+                .andExpect(RESTAURANT_VIEW_DTO_MATCHER.contentJson(asViewDtos(restaurantsSort)));
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void getAllWithNumberVoicesForToday() throws Exception {
+    void getAllWithTodayNumberVoices() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "number-voices"))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -88,16 +87,6 @@ public class AdminRestaurantRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "all"))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
-    }
-
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void getVotedByUser() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "voted-by-user/" + UserTestData.user_1.getId()))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_MATCHER.contentJson(italian));
     }
 
     @Test

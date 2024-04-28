@@ -1,18 +1,28 @@
 package com.topjava.graduation.util;
 
-import com.topjava.graduation.model.Voice;
+import com.topjava.graduation.dto.VoiceViewDto;
 import com.topjava.graduation.exception.VotingRestrictionsException;
+import com.topjava.graduation.model.Voice;
 import lombok.experimental.UtilityClass;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import static com.topjava.graduation.util.RestaurantUtil.asVotedByUserDto;
 
 @UtilityClass
 public class VoiceUtil {
 
-    public static boolean isAvailableUpdate(Voice voice) {
-        if (voice.getTime().isBefore(LocalTime.of(11, 0))) {
+    public static boolean isAvailableToSave() {
+        if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
             return true;
         }
-        throw new VotingRestrictionsException("It is not possible to change the voice after 11:00 a.m.");
+        throw new VotingRestrictionsException("Voting is closed for today after 11 a.m.");
+    }
+
+    public static VoiceViewDto asDto(Voice voice) {
+        return new VoiceViewDto(
+                LocalDateTime.of(voice.getDate(), voice.getTime()),
+                asVotedByUserDto(voice.getRestaurant()));
     }
 }

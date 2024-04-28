@@ -6,7 +6,6 @@ import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.model.Voice;
 import com.topjava.graduation.repository.RestaurantRepository;
-import com.topjava.graduation.repository.UserRepository;
 import com.topjava.graduation.repository.VoiceRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,24 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
-import static com.topjava.graduation.util.RestaurantUtil.convertToViewDtos;
-import static com.topjava.graduation.util.RestaurantUtil.convertToVotedByUserDto;
-import static com.topjava.graduation.util.VoiceUtil.isAvailableUpdate;
+import static com.topjava.graduation.util.RestaurantUtil.asViewDtos;
+import static com.topjava.graduation.util.RestaurantUtil.asVotedByUserDto;
 
 @Service
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final VoiceRepository voiceRepository;
-    private final UserRepository userRepository;
 
-    public RestaurantService(RestaurantRepository restaurantRepository,
-                             VoiceRepository voiceRepository, UserRepository userRepository) {
+    public RestaurantService(RestaurantRepository restaurantRepository, VoiceRepository voiceRepository) {
         this.restaurantRepository = restaurantRepository;
         this.voiceRepository = voiceRepository;
-        this.userRepository = userRepository;
     }
 
     public List<Restaurant> getAll() {
@@ -40,12 +34,12 @@ public class RestaurantService {
     }
 
     @Cacheable("restaurants")
-    public List<RestaurantViewDto> getAllWithdishsForToday() {
-        return convertToViewDtos(restaurantRepository.findAllWithDishesForToday(LocalDate.now()));
+    public List<RestaurantViewDto> getAllWithTodayDishes() {
+        return asViewDtos(restaurantRepository.findAllWithTodayDishes(LocalDate.now()));
     }
 
-    public List<RestaurantWithNumberVoicesDto> getAllWithNumberVoicesForToday() {
-        return restaurantRepository.findAllWithNumberVoicesForToday(LocalDate.now());
+    public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
+        return restaurantRepository.findAllWithTodayNumberVoices(LocalDate.now());
     }
 
     public Restaurant get(int id) {
@@ -55,7 +49,7 @@ public class RestaurantService {
     public RestaurantVotedByUserDto getVotedByUserForToday(int userId) {
         Voice voice = voiceRepository.get(userId, LocalDate.now());
         if (voice == null) return null;
-        return convertToVotedByUserDto(voice.getRestaurant());
+        return asVotedByUserDto(voice.getRestaurant());
     }
 
     @Transactional
@@ -68,21 +62,5 @@ public class RestaurantService {
     @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id) {
         restaurantRepository.delete(restaurantRepository.get(id));
-    }
-
-    @Transactional
-    public void vote(int userId, int restaurantId) {
-        Voice existing = voiceRepository.get(userId, LocalDate.now());
-        if (existing != null) {
-            if (isAvailableUpdate(existing)) {
-                existing.setRestaurant(restaurantRepository.getReferenceById(restaurantId));
-                existing.setTime(LocalTime.now());
-            }
-        } else {
-            Voice voice = new Voice();
-            voice.setUser(userRepository.getReferenceById(userId));
-            voice.setRestaurant(restaurantRepository.getReferenceById(restaurantId));
-            voiceRepository.save(voice);
-        }
     }
 }

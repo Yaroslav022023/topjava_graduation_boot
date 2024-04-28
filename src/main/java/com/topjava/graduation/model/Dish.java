@@ -32,7 +32,7 @@ public class Dish extends NamedEntity {
     private LocalDate date;
 
     @Column(name = "price", nullable = false)
-    @Range(min = 5, max = 2000)
+    @Range(min = 1)
     private long price;
 
     @ManyToOne(fetch = FetchType.LAZY)

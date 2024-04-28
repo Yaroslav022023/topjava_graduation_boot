@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class DishesUtil {
 
-    public static Set<DishViewDto> getTos(Set<Dish> dishes) {
+    public static Set<DishViewDto> asViewDtos(Set<Dish> dishes) {
         return dishes.stream()
                 .map(m -> new DishViewDto(m.getId(), m.getName(), m.getPrice()))
                 .collect(Collectors.toSet());

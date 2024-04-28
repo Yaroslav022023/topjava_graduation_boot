@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DishServiceTest extends AbstractServiceTest {
 
     @Autowired
-    protected DishService service;
+    private DishService service;
 
     @Test
     void getAll() {

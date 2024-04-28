@@ -10,13 +10,13 @@ import java.util.List;
 @UtilityClass
 public class RestaurantUtil {
 
-    public static List<RestaurantViewDto> convertToViewDtos(List<Restaurant> restaurants) {
+    public static List<RestaurantViewDto> asViewDtos(List<Restaurant> restaurants) {
         return restaurants.stream()
-                .map(r -> new RestaurantViewDto(r.getId(), r.getName(), DishesUtil.getTos(r.getDishes())))
+                .map(r -> new RestaurantViewDto(r.getId(), r.getName(), DishesUtil.asViewDtos(r.getDishes())))
                 .toList();
     }
 
-    public static RestaurantVotedByUserDto convertToVotedByUserDto(Restaurant restaurant) {
+    public static RestaurantVotedByUserDto asVotedByUserDto(Restaurant restaurant) {
         return new RestaurantVotedByUserDto(restaurant.getId(), restaurant.getName());
     }
 }

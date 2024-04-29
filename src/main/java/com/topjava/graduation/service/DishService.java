@@ -41,6 +41,6 @@ public class DishService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id, int restaurantId) {
-        dishRepository.delete(dishRepository.getBelonged(id, restaurantId));
+        dishRepository.deleteExisted(id, restaurantId);
     }
 }

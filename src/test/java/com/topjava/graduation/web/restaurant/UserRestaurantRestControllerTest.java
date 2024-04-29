@@ -38,17 +38,6 @@ public class UserRestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = USER_1_MAIL)
-    void getAllWithTodayNumberVoices() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "number-voices"))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER
-                        .contentJson(getWithNumberVoicesDtos()));
-    }
-
-    @Test
-    @WithUserDetails(value = USER_1_MAIL)
     void getVotedByUser() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "voted-by-user"))
                 .andExpect(status().isOk())

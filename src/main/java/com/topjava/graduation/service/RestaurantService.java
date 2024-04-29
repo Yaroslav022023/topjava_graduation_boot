@@ -37,6 +37,7 @@ public class RestaurantService {
         return asWithDishesViewDtos(restaurantRepository.findAllWithTodayDishes(LocalDate.now()));
     }
 
+    @Cacheable("restaurantsWithNumberVoices")
     public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
         return restaurantRepository.findAllWithTodayNumberVoices(LocalDate.now());
     }
@@ -52,13 +53,13 @@ public class RestaurantService {
     }
 
     @Transactional
-    @CacheEvict(value = "restaurants", allEntries = true)
+    @CacheEvict(value = {"restaurants", "restaurantsWithNumberVoices"}, allEntries = true)
     public Restaurant save(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         return restaurant.isNew() || get(restaurant.id()) != null ? restaurantRepository.save(restaurant) : null;
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
+    @CacheEvict(value = {"restaurants", "restaurantsWithNumberVoices"}, allEntries = true)
     public void delete(int id) {
         restaurantRepository.delete(restaurantRepository.get(id));
     }

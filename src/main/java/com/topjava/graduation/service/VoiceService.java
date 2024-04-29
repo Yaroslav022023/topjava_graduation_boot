@@ -7,6 +7,7 @@ import com.topjava.graduation.repository.RestaurantRepository;
 import com.topjava.graduation.repository.UserRepository;
 import com.topjava.graduation.repository.VoiceRepository;
 import com.topjava.graduation.util.VoiceUtil;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,7 @@ public class VoiceService {
     }
 
     @Transactional
+    @CacheEvict(value = "restaurantsWithNumberVoices", allEntries = true)
     public VoiceViewDto save(int userId, VoiceDto voiceDto) {
         if (isAvailableToSave()) {
             Voice voice = voiceRepository.get(userId, LocalDate.now());

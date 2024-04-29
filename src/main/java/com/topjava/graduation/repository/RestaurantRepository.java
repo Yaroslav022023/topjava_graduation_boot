@@ -13,16 +13,15 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
-    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishes m WHERE m.date = :date")
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes m WHERE m.date = :date")
     List<Restaurant> findAllWithTodayDishes(LocalDate date);
 
-    @Query("SELECT new com.topjava.graduation.dto.RestaurantWithNumberVoicesDto(r.id, r.name, COUNT(v.id)) " +
-            "FROM Restaurant r " +
-            "LEFT JOIN Voice v ON v.restaurant.id = r.id AND v.date = :date " +
-            "GROUP BY r.id")
+    @Query("SELECT new com.topjava.graduation.dto.RestaurantWithNumberVoicesDto(r.id, r.name, " +
+            "(SELECT COUNT(v) FROM Voice v WHERE v.restaurant = r AND v.date = :date)) " +
+            "FROM Restaurant r")
     List<RestaurantWithNumberVoicesDto> findAllWithTodayNumberVoices(LocalDate date);
 
     default Restaurant get(int id) {
-        return findById(id).orElseThrow(() -> new NotFoundException("Entity with id=" + id + " not found"));
+        return findById(id).orElseThrow(() -> new NotFoundException("Restaurant with id=" + id + " not found"));
     }
 }

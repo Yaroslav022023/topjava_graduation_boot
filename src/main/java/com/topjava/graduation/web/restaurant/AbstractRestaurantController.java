@@ -25,12 +25,12 @@ public class AbstractRestaurantController {
     }
 
     public List<RestaurantWithDishesViewDto> getAllWithTodayDishes() {
-        log.info("getAllWithDishesForToday");
+        log.info("getAllWithTodayDishes");
         return service.getAllWithTodayDishes();
     }
 
     public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
-        log.info("getAllWithNumberVoicesForToday");
+        log.info("getAllWithTodayNumberVoices");
         return service.getAllWithTodayNumberVoices();
     }
 

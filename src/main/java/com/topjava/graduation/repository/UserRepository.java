@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByEmailIgnoreCase(String email);
 
     default User get(int id) {
-        return findById(id).orElseThrow(() -> new NotFoundException("Entity with id=" + id + " not found"));
+        return findById(id).orElseThrow(() -> new NotFoundException("User with id=" + id + " not found"));
     }
 
     default User getExistedByEmails(String email) {

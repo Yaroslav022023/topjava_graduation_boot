@@ -40,9 +40,9 @@ public class RestaurantTestData {
     }
 
     public static final List<RestaurantWithNumberVoicesDto> restaurantsWithNumberVoices = List.of(
-            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2),
             new RestaurantWithNumberVoicesDto(ASIAN_ID, "Asian", 1),
-            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 0)
+            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 0),
+            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2)
     );
     public static final List<RestaurantWithNumberVoicesDto> restaurantsWithNumberVoicesUpdated = List.of(
             new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2),
@@ -65,8 +65,9 @@ public class RestaurantTestData {
     }
 
     public static List<RestaurantWithNumberVoicesDto> getWithNumberVoicesDtos() {
-        return List.of(new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2),
+        return List.of(
                 new RestaurantWithNumberVoicesDto(ASIAN_ID, "Asian", 1),
-                new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 0));
+                new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 0),
+                new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2));
     }
 }

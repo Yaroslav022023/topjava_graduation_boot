@@ -1,8 +1,7 @@
 package com.topjava.graduation.web.restaurant;
 
-import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantViewDto;
-import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
+import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.web.AuthUser;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +21,6 @@ public class UserRestaurantRestController extends AbstractRestaurantController {
     @GetMapping
     public List<RestaurantWithDishesViewDto> getAllWithTodayDishes() {
         return super.getAllWithTodayDishes();
-    }
-
-    @Override
-    @GetMapping("/number-voices")
-    public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
-        return super.getAllWithTodayNumberVoices();
     }
 
     @GetMapping("/voted-by-user")

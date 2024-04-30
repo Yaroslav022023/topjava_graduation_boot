@@ -40,8 +40,11 @@ public class VoiceService {
     @Transactional
     @CacheEvict(value = "restaurantsWithNumberVoices", allEntries = true)
     public VoiceViewDto save(int userId, VoiceDto voiceDto) {
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
         if (isAvailableToSave()) {
-            Voice voice = voiceRepository.get(userId, LocalDate.now());
+            Voice voice = voiceRepository.get(userId, date);
             if (voice == null) {
                 voice = new Voice();
                 voice.setUser(userRepository.getReferenceById(userId));
@@ -49,7 +52,8 @@ public class VoiceService {
                 voiceRepository.save(voice);
             } else {
                 voice.setRestaurant(restaurantRepository.getReferenceById(voiceDto.getRestaurantId()));
-                voice.setTime(LocalTime.now());
+                voice.setDate(date);
+                voice.setTime(time);
             }
             return asDto(voice);
         }

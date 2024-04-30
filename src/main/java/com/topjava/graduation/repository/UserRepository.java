@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
         return findById(id).orElseThrow(() -> new NotFoundException("User with id=" + id + " not found"));
     }
 
-    default User getExistedByEmails(String email) {
+    default User getExistedByEmail(String email) {
         return findByEmailIgnoreCase(email).orElseThrow(() -> new NotFoundException("User with email=" + email + " not found"));
     }
 }

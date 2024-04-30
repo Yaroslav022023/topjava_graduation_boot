@@ -1,7 +1,7 @@
 package com.topjava.graduation.service;
 
-import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantViewDto;
+import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.model.Voice;
@@ -61,6 +61,6 @@ public class RestaurantService {
 
     @CacheEvict(value = {"restaurants", "restaurantsWithNumberVoices"}, allEntries = true)
     public void delete(int id) {
-        restaurantRepository.delete(restaurantRepository.get(id));
+        restaurantRepository.deleteExisted(id);
     }
 }

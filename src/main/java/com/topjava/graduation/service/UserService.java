@@ -37,7 +37,7 @@ public class UserService {
 
     public User getByEmail(String email) {
         Assert.notNull(email, "email must not be null");
-        return userRepository.getExistedByEmails(email);
+        return userRepository.getExistedByEmail(email);
     }
 
     @Transactional

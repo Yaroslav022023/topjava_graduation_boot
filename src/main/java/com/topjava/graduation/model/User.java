@@ -2,7 +2,6 @@ package com.topjava.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.topjava.graduation.HasIdAndEmail;
-import com.topjava.graduation.View;
 import com.topjava.graduation.util.validation.NoHtml;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -30,7 +29,7 @@ public class User extends NamedEntity implements HasIdAndEmail {
     @Email
     @NotBlank
     @Size(max = 128)
-    @NoHtml(groups = {View.Web.class})
+    @NoHtml
     private String email;
 
     @Column(name = "password", nullable = false)

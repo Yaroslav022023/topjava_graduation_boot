@@ -1,14 +1,13 @@
 package com.topjava.graduation.web.restaurant;
 
-import com.topjava.graduation.View;
 import com.topjava.graduation.dto.RestaurantViewDto;
 import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
 import com.topjava.graduation.model.Restaurant;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -45,7 +44,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantController 
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> createWithLocation(@Validated(View.Web.class) @RequestBody Restaurant restaurant) {
+    public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
         Restaurant created = super.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -56,7 +55,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantController 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody Restaurant restaurant, @PathVariable int id) {
+    public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
         super.update(restaurant, id);
     }
 

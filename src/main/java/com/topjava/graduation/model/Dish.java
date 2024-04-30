@@ -1,7 +1,7 @@
 package com.topjava.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.topjava.graduation.View;
+import com.topjava.graduation.util.validation.Persist;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -39,7 +39,7 @@ public class Dish extends NamedEntity {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference
-    @NotNull(groups = View.Persist.class)
+    @NotNull(groups = Persist.class)
     @Schema(hidden = true)
     private Restaurant restaurant;
 

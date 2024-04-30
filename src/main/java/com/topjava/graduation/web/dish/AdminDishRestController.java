@@ -1,14 +1,13 @@
 package com.topjava.graduation.web.dish;
 
-import com.topjava.graduation.View;
 import com.topjava.graduation.model.Dish;
 import com.topjava.graduation.service.DishService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -43,8 +42,7 @@ public class AdminDishRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocation(@Validated(View.Web.class) @RequestBody Dish dish,
-                                                   @PathVariable int restaurantId) {
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish, @PathVariable int restaurantId) {
         log.info("create {} for restaurant={}", dish, restaurantId);
         checkNew(dish);
         Dish created = service.save(dish, restaurantId);
@@ -56,8 +54,7 @@ public class AdminDishRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody Dish dish, @PathVariable int id,
-                       @PathVariable int restaurantId) {
+    public void update(@Valid @RequestBody Dish dish, @PathVariable int id, @PathVariable int restaurantId) {
         log.info("update {} for restaurant={}", dish, restaurantId);
         assureIdConsistent(dish, id);
         service.save(dish, restaurantId);

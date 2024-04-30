@@ -32,9 +32,7 @@ public class DishService {
     @CacheEvict(value = "restaurants", allEntries = true)
     public Dish save(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
-        if (!dish.isNew() && get(dish.id(), restaurantId) == null) {
-            return null;
-        }
+        if (!dish.isNew() && get(dish.id(), restaurantId) == null) return null;
         dish.setRestaurant(restaurantRepository.getReferenceById(restaurantId));
         return dishRepository.save(dish);
     }

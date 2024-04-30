@@ -23,8 +23,8 @@ spring:
         persistence:
           validation:
             group:
-              pre-persist: com.topjava.graduation.View$Persist
-              pre-update: com.topjava.graduation.View$Persist
+              pre-persist: com.topjava.graduation.util.validation.Persist
+              pre-update: com.topjava.graduation.util.validation.Persist
 
   datasource:
     # ImMemory

@@ -1,7 +1,7 @@
 package com.topjava.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.topjava.graduation.View;
+import com.topjava.graduation.util.validation.Persist;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -32,13 +32,13 @@ public class Voice extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull(groups = View.Persist.class)
+    @NotNull(groups = Persist.class)
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull(groups = View.Persist.class)
+    @NotNull(groups = Persist.class)
     private User user;
 
     public Voice() {

@@ -1,6 +1,5 @@
 package com.topjava.graduation.model;
 
-import com.topjava.graduation.View;
 import com.topjava.graduation.util.validation.NoHtml;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -18,7 +17,7 @@ public class NamedEntity extends BaseEntity {
     @Column(name = "name", nullable = false)
     @NotBlank
     @Size(min = 2, max = 255)
-    @NoHtml(groups = {View.Web.class})
+    @NoHtml
     protected String name;
 
     public NamedEntity(Integer id, String name) {

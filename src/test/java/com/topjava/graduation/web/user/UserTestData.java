@@ -50,6 +50,10 @@ public class UserTestData {
         return new UserDto(null, "nameUpdated", "email_updated@gmail.com", "passUpdated");
     }
 
+    public static UserDto getWrongUpdatedDto() {
+        return new UserDto(null, "", "email_updated@gmail.com", "passUpdated");
+    }
+
     public static String jsonWithPassword(User user, String passw) {
         return writeAdditionProps(user, "password", passw);
     }

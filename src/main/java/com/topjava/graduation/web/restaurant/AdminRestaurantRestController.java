@@ -14,15 +14,18 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import static com.topjava.graduation.util.validation.ValidationUtil.assureIdConsistent;
+import static com.topjava.graduation.util.validation.ValidationUtil.checkNew;
+
 @RestController
 @RequestMapping(value = AdminRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminRestaurantRestController extends AbstractRestaurantController {
     static final String REST_URL = "/api/admin/restaurants";
 
-    @Override
     @GetMapping
     public List<RestaurantViewDto> getAll() {
-        return super.getAll();
+        log.info("getAll");
+        return service.getAll();
     }
 
     @Override
@@ -31,38 +34,42 @@ public class AdminRestaurantRestController extends AbstractRestaurantController 
         return super.getAllWithTodayDishes();
     }
 
-    @Override
     @GetMapping("/number-voices")
     public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
-        return super.getAllWithTodayNumberVoices();
+        log.info("getAllWithTodayNumberVoices");
+        return service.getAllWithTodayNumberVoices();
     }
 
-    @Override
     @GetMapping("/{id}")
     public RestaurantViewDto get(@PathVariable int id) {
-        return super.get(id);
+        log.info("get {}", id);
+        return service.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
-        Restaurant created = super.create(restaurant);
+        log.info("create {}", restaurant);
+        checkNew(restaurant);
+        Restaurant created = service.save(restaurant);
+
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
-        super.update(restaurant, id);
+        log.info("update {} with id={}", restaurant, id);
+        assureIdConsistent(restaurant, id);
+        service.save(restaurant);
     }
 
-    @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        super.delete(id);
+        log.info("delete {}", id);
+        service.delete(id);
     }
 }

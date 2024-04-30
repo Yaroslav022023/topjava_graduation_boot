@@ -5,14 +5,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class NamedDto extends BaseDto {
     @NotBlank
     @Size(min = 2, max = 255)
     @NoHtml
-    protected String name;
+    protected final String name;
 
     public NamedDto(Integer id, String name) {
         super(id);

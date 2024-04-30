@@ -155,8 +155,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_1_MAIL)
     void updateInvalidName() throws Exception {
-        UserDto updated = getUpdatedDto();
-        updated.setName("");
+        UserDto updated = getWrongUpdatedDto();
         perform(MockMvcRequestBuilders.put(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonWithPassword(updated, updated.getPassword())))

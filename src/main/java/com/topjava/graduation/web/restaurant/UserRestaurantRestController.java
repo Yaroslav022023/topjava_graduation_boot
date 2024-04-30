@@ -25,7 +25,8 @@ public class UserRestaurantRestController extends AbstractRestaurantController {
 
     @GetMapping("/voted-by-user")
     public ResponseEntity<RestaurantViewDto> getVotedByUser(@AuthenticationPrincipal AuthUser authUser) {
-        RestaurantViewDto result = super.getVotedByUser(authUser.id());
+        log.info("getVotedByUser {}", authUser.id());
+        RestaurantViewDto result = service.getVotedByUserForToday(authUser.id());
         return result != null ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
     }
 }

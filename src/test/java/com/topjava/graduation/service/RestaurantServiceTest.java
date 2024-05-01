@@ -69,7 +69,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void getAllWithDishsForToday() {
+    void getAllWithDishesForToday() {
         RESTAURANT_WITH_DISHES_VIEW_DTO_MATCHER.assertMatch(service.getAllWithTodayDishes(), asWithDishesViewDtos(restaurantsSort));
     }
 

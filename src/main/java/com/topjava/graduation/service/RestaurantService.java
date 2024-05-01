@@ -2,7 +2,7 @@ package com.topjava.graduation.service;
 
 import com.topjava.graduation.dto.RestaurantViewDto;
 import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
-import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
+import com.topjava.graduation.dto.RestaurantWithNumVoicesViewDto;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.model.Voice;
 import com.topjava.graduation.repository.RestaurantRepository;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.topjava.graduation.util.RestaurantUtil.*;
@@ -38,8 +39,11 @@ public class RestaurantService {
     }
 
     @Cacheable("restaurantsWithNumberVoices")
-    public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
-        return restaurantRepository.findAllWithTodayNumberVoices(LocalDate.now());
+    public List<RestaurantWithNumVoicesViewDto> getAllWithTodayNumberVoices() {
+        List<RestaurantWithNumVoicesViewDto> restaurants =
+                restaurantRepository.findAllWithTodayNumberVoices(LocalDate.now());
+        restaurants.sort(Comparator.comparing(RestaurantWithNumVoicesViewDto::getVoices).reversed());
+        return restaurants;
     }
 
     public RestaurantViewDto get(int id) {

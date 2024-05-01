@@ -2,7 +2,7 @@ package com.topjava.graduation.web.restaurant;
 
 import com.topjava.graduation.dto.RestaurantViewDto;
 import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
-import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
+import com.topjava.graduation.dto.RestaurantWithNumVoicesViewDto;
 import com.topjava.graduation.model.Restaurant;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantController 
     }
 
     @GetMapping("/number-voices")
-    public List<RestaurantWithNumberVoicesDto> getAllWithTodayNumberVoices() {
+    public List<RestaurantWithNumVoicesViewDto> getAllWithTodayNumberVoices() {
         log.info("getAllWithTodayNumberVoices");
         return service.getAllWithTodayNumberVoices();
     }

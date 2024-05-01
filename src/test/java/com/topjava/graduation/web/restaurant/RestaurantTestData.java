@@ -3,7 +3,7 @@ package com.topjava.graduation.web.restaurant;
 import com.topjava.graduation.MatcherFactory;
 import com.topjava.graduation.dto.RestaurantViewDto;
 import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
-import com.topjava.graduation.dto.RestaurantWithNumberVoicesDto;
+import com.topjava.graduation.dto.RestaurantWithNumVoicesViewDto;
 import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.web.dish.DishTestData;
 
@@ -19,8 +19,8 @@ public class RestaurantTestData {
             MatcherFactory.usingIgnoringFieldsComparator(RestaurantViewDto.class);
     public static final MatcherFactory.Matcher<RestaurantWithDishesViewDto> RESTAURANT_WITH_DISHES_VIEW_DTO_MATCHER =
             MatcherFactory.usingEqualsComparator(RestaurantWithDishesViewDto.class);
-    public static final MatcherFactory.Matcher<RestaurantWithNumberVoicesDto> RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER =
-            MatcherFactory.usingEqualsComparator(RestaurantWithNumberVoicesDto.class);
+    public static final MatcherFactory.Matcher<RestaurantWithNumVoicesViewDto> RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER =
+            MatcherFactory.usingEqualsComparator(RestaurantWithNumVoicesViewDto.class);
 
     public static final int ITALIAN_ID = START_SEQ + 5;
     public static final int ASIAN_ID = START_SEQ + 6;
@@ -39,21 +39,21 @@ public class RestaurantTestData {
         french.setDishes(new HashSet<>(DishTestData.FRENCH_DISHES));
     }
 
-    public static final List<RestaurantWithNumberVoicesDto> restaurantsWithNumberVoices = List.of(
-            new RestaurantWithNumberVoicesDto(ASIAN_ID, "Asian", 1),
-            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 0),
-            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2)
+    public static final List<RestaurantWithNumVoicesViewDto> restaurantsWithNumberVoices = List.of(
+            new RestaurantWithNumVoicesViewDto(ITALIAN_ID, "Italian", 2),
+            new RestaurantWithNumVoicesViewDto(ASIAN_ID, "Asian", 1),
+            new RestaurantWithNumVoicesViewDto(FRENCH_ID, "French", 0)
     );
-    public static final List<RestaurantWithNumberVoicesDto> restaurantsWithNumberVoicesUpdated = List.of(
-            new RestaurantWithNumberVoicesDto(ASIAN_ID, "Asian", 1),
-            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 1),
-            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2)
+    public static final List<RestaurantWithNumVoicesViewDto> restaurantsWithNumberVoicesUpdated = List.of(
+            new RestaurantWithNumVoicesViewDto(ASIAN_ID, "Asian", 1),
+            new RestaurantWithNumVoicesViewDto(FRENCH_ID, "French", 1),
+            new RestaurantWithNumVoicesViewDto(ITALIAN_ID, "Italian", 2)
     );
 
-    public static final List<RestaurantWithNumberVoicesDto> restaurantsWithNumberVoicesUpdated_2 = List.of(
-            new RestaurantWithNumberVoicesDto(ASIAN_ID, "Asian", 1),
-            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 1),
-            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 1)
+    public static final List<RestaurantWithNumVoicesViewDto> restaurantsWithNumberVoicesUpdated_2 = List.of(
+            new RestaurantWithNumVoicesViewDto(ASIAN_ID, "Asian", 1),
+            new RestaurantWithNumVoicesViewDto(FRENCH_ID, "French", 1),
+            new RestaurantWithNumVoicesViewDto(ITALIAN_ID, "Italian", 1)
     );
 
     public static Restaurant getNew() {
@@ -64,10 +64,10 @@ public class RestaurantTestData {
         return new Restaurant(ITALIAN_ID, "Updated Restaurant");
     }
 
-    public static List<RestaurantWithNumberVoicesDto> getWithNumberVoicesDtos() {
+    public static List<RestaurantWithNumVoicesViewDto> getWithNumberVoicesDtos() {
         return List.of(
-                new RestaurantWithNumberVoicesDto(ASIAN_ID, "Asian", 1),
-                new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 0),
-                new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2));
+                new RestaurantWithNumVoicesViewDto(ITALIAN_ID, "Italian", 2),
+                new RestaurantWithNumVoicesViewDto(ASIAN_ID, "Asian", 1),
+                new RestaurantWithNumVoicesViewDto(FRENCH_ID, "French", 0));
     }
 }

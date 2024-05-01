@@ -5,10 +5,10 @@ import lombok.Value;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class RestaurantWithNumberVoicesDto extends NamedDto {
+public class RestaurantWithNumVoicesViewDto extends NamedDto {
     int voices;
 
-    public RestaurantWithNumberVoicesDto(Integer id, String name, long voices) {
+    public RestaurantWithNumVoicesViewDto(Integer id, String name, long voices) {
         super(id, name);
         this.voices = (int) voices;
     }

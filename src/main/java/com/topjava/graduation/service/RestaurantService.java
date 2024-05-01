@@ -56,7 +56,7 @@ public class RestaurantService {
     @CacheEvict(value = {"restaurants", "restaurantsWithNumberVoices"}, allEntries = true)
     public Restaurant save(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        return restaurant.isNew() || get(restaurant.id()) != null ? restaurantRepository.save(restaurant) : null;
+        return restaurantRepository.save(restaurant);
     }
 
     @CacheEvict(value = {"restaurants", "restaurantsWithNumberVoices"}, allEntries = true)

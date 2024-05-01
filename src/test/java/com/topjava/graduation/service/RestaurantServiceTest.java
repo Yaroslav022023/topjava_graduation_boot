@@ -58,12 +58,6 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void updateNotFound() {
-        Restaurant notFound = new Restaurant(NOT_FOUND, "Not Exist");
-        assertThrows(NotFoundException.class, () -> service.save(notFound));
-    }
-
-    @Test
     void delete() {
         service.delete(ASIAN_ID);
         assertThrows(NotFoundException.class, () -> service.get(ASIAN_ID));

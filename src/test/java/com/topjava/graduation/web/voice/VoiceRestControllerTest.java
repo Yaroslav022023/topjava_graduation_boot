@@ -53,17 +53,13 @@ public class VoiceRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = USER_1_MAIL)
-    void updateWithLocation() throws Exception {
+    void update() throws Exception {
         if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
-            ResultActions action = perform(MockMvcRequestBuilders.patch(REST_URL)
+            perform(MockMvcRequestBuilders.patch(REST_URL)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(writeValue(new VoiceDto(FRENCH_ID))))
-                    .andExpect(status().isCreated())
+                    .andExpect(status().isNoContent())
                     .andDo(print());
-
-            VoiceViewDto created = VOICE_MATCHER.readFromJson(action);
-            assertEquals(FRENCH_ID, created.getRestaurant().getId());
-            VOICE_MATCHER.assertMatch(service.get(USER_1_ID), created);
 
             RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(
                     restaurantService.getAllWithTodayNumberVoices(), restaurantsWithNumberVoicesUpdated_2);

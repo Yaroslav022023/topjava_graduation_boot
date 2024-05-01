@@ -45,15 +45,15 @@ public class RestaurantTestData {
             new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2)
     );
     public static final List<RestaurantWithNumberVoicesDto> restaurantsWithNumberVoicesUpdated = List.of(
-            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2),
             new RestaurantWithNumberVoicesDto(ASIAN_ID, "Asian", 1),
-            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 1)
+            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 1),
+            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 2)
     );
 
     public static final List<RestaurantWithNumberVoicesDto> restaurantsWithNumberVoicesUpdated_2 = List.of(
-            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 1),
             new RestaurantWithNumberVoicesDto(ASIAN_ID, "Asian", 1),
-            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 1)
+            new RestaurantWithNumberVoicesDto(FRENCH_ID, "French", 1),
+            new RestaurantWithNumberVoicesDto(ITALIAN_ID, "Italian", 1)
     );
 
     public static Restaurant getNew() {

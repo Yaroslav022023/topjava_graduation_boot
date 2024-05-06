@@ -1,7 +1,9 @@
 package com.topjava.graduation.web.voice;
 
+import com.topjava.graduation.dto.RestaurantViewDto;
 import com.topjava.graduation.dto.VoiceDto;
 import com.topjava.graduation.dto.VoiceViewDto;
+import com.topjava.graduation.service.RestaurantService;
 import com.topjava.graduation.service.VoiceService;
 import com.topjava.graduation.web.AuthUser;
 import org.slf4j.Logger;
@@ -23,9 +25,11 @@ public class VoiceController {
     static final String REST_URL = "/api/voices";
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final VoiceService service;
+    private final RestaurantService restaurantService;
 
-    public VoiceController(VoiceService service) {
+    public VoiceController(VoiceService service, RestaurantService restaurantService) {
         this.service = service;
+        this.restaurantService = restaurantService;
     }
 
     @GetMapping
@@ -51,5 +55,12 @@ public class VoiceController {
     public void update(@RequestBody VoiceDto voiceDto, @AuthenticationPrincipal AuthUser authUser) {
         log.info("update voice of user={}", authUser.id());
         service.save(authUser.id(), voiceDto);
+    }
+
+    @GetMapping("/voted-by-user")
+    public ResponseEntity<RestaurantViewDto> getVotedByUser(@AuthenticationPrincipal AuthUser authUser) {
+        log.info("getVotedByUser {}", authUser.id());
+        RestaurantViewDto result = restaurantService.getVotedByUserForToday(authUser.id());
+        return result != null ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
     }
 }

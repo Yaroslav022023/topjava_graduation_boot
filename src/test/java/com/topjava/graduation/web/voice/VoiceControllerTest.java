@@ -22,9 +22,11 @@ import static com.topjava.graduation.web.voice.VoiceController.REST_URL;
 import static com.topjava.graduation.web.voice.VoiceTestData.VOICE_MATCHER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class VoiceControllerTest extends AbstractControllerTest {
+    private static final String REST_URL_SLASH = REST_URL + '/';
 
     @Autowired
     private VoiceService service;
@@ -90,5 +92,23 @@ public class VoiceControllerTest extends AbstractControllerTest {
                     .andDo(print())
                     .andExpect(titleMessage(VOTING_RESTRICTIONS.title));
         }
+    }
+
+    @Test
+    @WithUserDetails(value = USER_1_MAIL)
+    void getVotedByUser() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "voted-by-user"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(RESTAURANT_MATCHER.contentJson(italian));
+    }
+
+    @Test
+    @WithUserDetails(value = GUEST_MAIL)
+    void getNotExistVotedByUser() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "voted-by-user"))
+                .andExpect(status().isNotFound())
+                .andDo(print());
     }
 }

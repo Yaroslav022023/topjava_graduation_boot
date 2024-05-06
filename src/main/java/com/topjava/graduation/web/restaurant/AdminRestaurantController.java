@@ -29,7 +29,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     }
 
     @Override
-    @GetMapping("/with-today-dishes")
+    @GetMapping("/menu_today")
     public List<RestaurantWithDishesViewDto> getAllWithTodayDishes() {
         return super.getAllWithTodayDishes();
     }

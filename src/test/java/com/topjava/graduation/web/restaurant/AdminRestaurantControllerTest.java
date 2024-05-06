@@ -47,7 +47,7 @@ public class AdminRestaurantControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getAllWithTodayDishes() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "with-today-dishes"))
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "menu_today"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

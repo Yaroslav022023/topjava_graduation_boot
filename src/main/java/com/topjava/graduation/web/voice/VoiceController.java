@@ -15,16 +15,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
-import static com.topjava.graduation.web.voice.VoiceRestController.REST_URL;
+import static com.topjava.graduation.web.voice.VoiceController.REST_URL;
 
 @RestController
 @RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class VoiceRestController {
+public class VoiceController {
     static final String REST_URL = "/api/voices";
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final VoiceService service;
 
-    public VoiceRestController(VoiceService service) {
+    public VoiceController(VoiceService service) {
         this.service = service;
     }
 

@@ -16,16 +16,16 @@ import java.util.List;
 
 import static com.topjava.graduation.util.validation.ValidationUtil.assureIdConsistent;
 import static com.topjava.graduation.util.validation.ValidationUtil.checkNew;
-import static com.topjava.graduation.web.dish.AdminDishRestController.REST_URL;
+import static com.topjava.graduation.web.dish.AdminDishController.REST_URL;
 
 @RestController
 @RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminDishRestController {
+public class AdminDishController {
     static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes";
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final DishService service;
 
-    public AdminDishRestController(DishService service) {
+    public AdminDishController(DishService service) {
         this.service = service;
     }
 

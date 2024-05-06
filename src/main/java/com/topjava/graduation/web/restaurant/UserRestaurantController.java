@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = UserRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserRestaurantRestController extends AbstractRestaurantController {
+@RequestMapping(value = UserRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class UserRestaurantController extends AbstractRestaurantController {
     static final String REST_URL = "/api/restaurants";
 
     @Override

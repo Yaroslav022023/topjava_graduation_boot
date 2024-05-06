@@ -18,13 +18,13 @@ import static com.topjava.graduation.exception.ErrorType.VOTING_RESTRICTIONS;
 import static com.topjava.graduation.util.JsonUtil.writeValue;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.*;
-import static com.topjava.graduation.web.voice.VoiceRestController.REST_URL;
+import static com.topjava.graduation.web.voice.VoiceController.REST_URL;
 import static com.topjava.graduation.web.voice.VoiceTestData.VOICE_MATCHER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class VoiceRestControllerTest extends AbstractControllerTest {
+public class VoiceControllerTest extends AbstractControllerTest {
 
     @Autowired
     private VoiceService service;

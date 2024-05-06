@@ -8,14 +8,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.topjava.graduation.util.RestaurantUtil.asWithDishesViewDtos;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
-import static com.topjava.graduation.web.restaurant.UserRestaurantRestController.REST_URL;
+import static com.topjava.graduation.web.restaurant.UserRestaurantController.REST_URL;
 import static com.topjava.graduation.web.user.UserTestData.GUEST_MAIL;
 import static com.topjava.graduation.web.user.UserTestData.USER_1_MAIL;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class UserRestaurantRestControllerTest extends AbstractControllerTest {
+public class UserRestaurantControllerTest extends AbstractControllerTest {
     private static final String REST_URL_SLASH = REST_URL + '/';
 
     @Test

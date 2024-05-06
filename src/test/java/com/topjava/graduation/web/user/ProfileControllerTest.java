@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.topjava.graduation.exception.ErrorType.BAD_DATA;
 import static com.topjava.graduation.util.UsersUtil.asDto;
 import static com.topjava.graduation.util.UsersUtil.createNewFromDto;
-import static com.topjava.graduation.web.user.ProfileRestController.REST_URL;
+import static com.topjava.graduation.web.user.ProfileController.REST_URL;
 import static com.topjava.graduation.web.user.UniqueMailValidator.EXCEPTION_DUPLICATE_EMAIL;
 import static com.topjava.graduation.web.user.UserTestData.*;
 import static org.hamcrest.Matchers.containsString;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ProfileRestControllerTest extends AbstractControllerTest {
+public class ProfileControllerTest extends AbstractControllerTest {
     @Autowired
     private UserService service;
 

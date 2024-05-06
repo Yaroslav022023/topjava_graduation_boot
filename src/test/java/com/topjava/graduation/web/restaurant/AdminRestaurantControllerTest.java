@@ -20,7 +20,7 @@ import static com.topjava.graduation.util.JsonUtil.writeValue;
 import static com.topjava.graduation.util.RestaurantUtil.asViewDto;
 import static com.topjava.graduation.util.RestaurantUtil.asWithDishesViewDtos;
 import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
-import static com.topjava.graduation.web.restaurant.AdminRestaurantRestController.REST_URL;
+import static com.topjava.graduation.web.restaurant.AdminRestaurantController.REST_URL;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.ADMIN_MAIL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class AdminRestaurantRestControllerTest extends AbstractControllerTest {
+public class AdminRestaurantControllerTest extends AbstractControllerTest {
     private static final String REST_URL_SLASH = REST_URL + '/';
 
     @Autowired

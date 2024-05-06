@@ -18,8 +18,8 @@ import static com.topjava.graduation.util.validation.ValidationUtil.assureIdCons
 import static com.topjava.graduation.util.validation.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = AdminRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestaurantRestController extends AbstractRestaurantController {
+@RequestMapping(value = AdminRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminRestaurantController extends AbstractRestaurantController {
     static final String REST_URL = "/api/admin/restaurants";
 
     @GetMapping

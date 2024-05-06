@@ -25,9 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class AdminDishRestControllerTest extends AbstractControllerTest {
+public class AdminDishControllerTest extends AbstractControllerTest {
     private static final String REST_URL =
-            AdminDishRestController.REST_URL.replace("{restaurantId}", Integer.toString(ITALIAN_ID));
+            AdminDishController.REST_URL.replace("{restaurantId}", Integer.toString(ITALIAN_ID));
     private static final String REST_URL_SLASH = REST_URL + '/';
 
     @Autowired

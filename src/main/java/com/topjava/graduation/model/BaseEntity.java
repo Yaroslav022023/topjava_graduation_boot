@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.Hibernate;
+import org.springframework.data.util.ProxyUtils;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
@@ -29,7 +29,7 @@ public class BaseEntity implements HasId {
         if (this == o) {
             return true;
         }
-        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+        if (o == null || !getClass().equals(ProxyUtils.getUserClass(o))) {
             return false;
         }
         BaseEntity that = (BaseEntity) o;

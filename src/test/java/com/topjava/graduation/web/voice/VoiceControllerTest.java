@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalTime;
 
+import static com.topjava.graduation.exception.ErrorType.NOT_FOUND;
 import static com.topjava.graduation.exception.ErrorType.VOTING_RESTRICTIONS;
 import static com.topjava.graduation.util.JsonUtil.writeValue;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
@@ -37,20 +38,29 @@ public class VoiceControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = GUEST_MAIL)
     void createWithLocation() throws Exception {
-        if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
-            ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(writeValue(new VoiceDto(FRENCH_ID))))
-                    .andExpect(status().isCreated())
-                    .andDo(print());
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeValue(new VoiceDto(FRENCH_ID))))
+                .andExpect(status().isCreated())
+                .andDo(print());
 
-            VoiceViewDto created = VOICE_MATCHER.readFromJson(action);
-            assertEquals(FRENCH_ID, created.getRestaurantId());
-            VOICE_MATCHER.assertMatch(service.get(GUEST_ID), created);
+        VoiceViewDto created = VOICE_MATCHER.readFromJson(action);
+        assertEquals(FRENCH_ID, created.getRestaurantId());
+        VOICE_MATCHER.assertMatch(service.getViewDto(GUEST_ID), created);
 
-            RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(
-                    restaurantService.getAllWithTodayNumberVoices(), restaurantsWithNumberVoicesUpdated);
-        }
+        RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(
+                restaurantService.getAllWithTodayNumberVoices(), restaurantsWithNumberVoicesUpdated);
+    }
+
+    @Test
+    @WithUserDetails(value = USER_1_MAIL)
+    void createSecond() throws Exception {
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeValue(new VoiceDto(FRENCH_ID))))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print())
+                .andExpect(titleMessage(VOTING_RESTRICTIONS.title));
     }
 
     @Test
@@ -69,10 +79,10 @@ public class VoiceControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = GUEST_MAIL)
-    void createWithRestrictions() throws Exception {
+    @WithUserDetails(value = USER_1_MAIL)
+    void updateWithRestrictions() throws Exception {
         if (LocalTime.now().isAfter(LocalTime.of(11, 0))) {
-            perform(MockMvcRequestBuilders.post(REST_URL)
+            perform(MockMvcRequestBuilders.patch(REST_URL)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(writeValue(new VoiceDto(FRENCH_ID))))
                     .andExpect(status().isUnprocessableEntity())
@@ -83,15 +93,13 @@ public class VoiceControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = GUEST_MAIL)
-    void updateWithRestrictions() throws Exception {
-        if (LocalTime.now().isAfter(LocalTime.of(11, 0))) {
-            perform(MockMvcRequestBuilders.patch(REST_URL)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(writeValue(new VoiceDto(FRENCH_ID))))
-                    .andExpect(status().isUnprocessableEntity())
-                    .andDo(print())
-                    .andExpect(titleMessage(VOTING_RESTRICTIONS.title));
-        }
+    void updateNotExist() throws Exception {
+        perform(MockMvcRequestBuilders.patch(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeValue(new VoiceDto(FRENCH_ID))))
+                .andExpect(status().isNotFound())
+                .andDo(print())
+                .andExpect(titleMessage(NOT_FOUND.title));
     }
 
     @Test

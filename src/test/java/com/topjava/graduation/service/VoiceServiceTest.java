@@ -23,48 +23,40 @@ public class VoiceServiceTest extends AbstractServiceTest {
 
     @Test
     void create() {
-        if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
-            assertNull(service.get(ADMIN_ID));
-            service.save(ADMIN_ID, new VoiceDto(FRENCH_ID));
+        assertNull(service.getViewDto(ADMIN_ID));
+        service.save(ADMIN_ID, new VoiceDto(FRENCH_ID), null);
 
-            RESTAURANT_VIEW_DTO_MATCHER.assertMatch(
-                    restaurantService.getVotedByUserForToday(ADMIN_ID), asViewDto(french));
-            RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(
-                    restaurantService.getAllWithTodayNumberVoices(), restaurantsWithNumberVoicesUpdated);
+        RESTAURANT_VIEW_DTO_MATCHER.assertMatch(
+                restaurantService.getVotedByUserForToday(ADMIN_ID), asViewDto(french));
+        RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(
+                restaurantService.getAllWithTodayNumberVoices(), restaurantsWithNumberVoicesUpdated);
 
-            VoiceViewDto voice = service.get(ADMIN_ID);
-            assertNotNull(voice);
-            assertEquals(FRENCH_ID, voice.getRestaurantId());
-        }
+        VoiceViewDto voice = service.getViewDto(ADMIN_ID);
+        assertNotNull(voice);
+        assertEquals(FRENCH_ID, voice.getRestaurantId());
     }
 
     @Test
     void update() {
         if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
-            service.save(USER_1_ID, new VoiceDto(FRENCH_ID));
+            service.save(USER_1_ID, new VoiceDto(FRENCH_ID), service.get(USER_1_ID));
 
             RESTAURANT_VIEW_DTO_MATCHER.assertMatch(
                     restaurantService.getVotedByUserForToday(USER_1_ID), asViewDto(french));
             RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(
                     restaurantService.getAllWithTodayNumberVoices(), restaurantsWithNumberVoicesUpdated_2);
 
-            VoiceViewDto voice = service.get(USER_1_ID);
+            VoiceViewDto voice = service.getViewDto(USER_1_ID);
             assertNotNull(voice);
             assertEquals(FRENCH_ID, voice.getRestaurantId());
         }
     }
 
     @Test
-    void createWithRestrictions() {
-        if (LocalTime.now().isAfter(LocalTime.of(11, 0))) {
-            assertThrows(VotingRestrictionsException.class, () -> service.save(GUEST_ID, new VoiceDto(FRENCH_ID)));
-        }
-    }
-
-    @Test
     void updateWithRestrictions() {
         if (LocalTime.now().isAfter(LocalTime.of(11, 0))) {
-            assertThrows(VotingRestrictionsException.class, () -> service.save(USER_3_ID, new VoiceDto(FRENCH_ID)));
+            assertThrows(VotingRestrictionsException.class, () ->
+                    service.save(USER_3_ID, new VoiceDto(FRENCH_ID), service.get(USER_3_ID)));
         }
     }
 }

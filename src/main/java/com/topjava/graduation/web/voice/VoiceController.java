@@ -3,6 +3,9 @@ package com.topjava.graduation.web.voice;
 import com.topjava.graduation.dto.RestaurantViewDto;
 import com.topjava.graduation.dto.VoiceDto;
 import com.topjava.graduation.dto.VoiceViewDto;
+import com.topjava.graduation.exception.NotFoundException;
+import com.topjava.graduation.exception.VotingRestrictionsException;
+import com.topjava.graduation.model.Voice;
 import com.topjava.graduation.service.RestaurantService;
 import com.topjava.graduation.service.VoiceService;
 import com.topjava.graduation.web.AuthUser;
@@ -36,7 +39,7 @@ public class VoiceController {
     @GetMapping
     public ResponseEntity<VoiceViewDto> get(@AuthenticationPrincipal AuthUser authUser) {
         log.info("get voice of user={}", authUser.id());
-        VoiceViewDto voice = service.get(authUser.id());
+        VoiceViewDto voice = service.getViewDto(authUser.id());
         return voice != null ? ResponseEntity.ok(voice) : ResponseEntity.noContent().build();
     }
 
@@ -44,10 +47,10 @@ public class VoiceController {
     public ResponseEntity<VoiceViewDto> createWithLocation(@RequestBody VoiceDto voiceDto,
                                                            @AuthenticationPrincipal AuthUser authUser) {
         log.info("create voice for user={}", authUser.id());
-        VoiceViewDto created = service.save(authUser.id(), voiceDto);
+
+        VoiceViewDto created = checkSaveVoice(authUser.id(), voiceDto, false);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL).build().toUri();
-
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
@@ -55,7 +58,17 @@ public class VoiceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody VoiceDto voiceDto, @AuthenticationPrincipal AuthUser authUser) {
         log.info("update voice of user={}", authUser.id());
-        service.save(authUser.id(), voiceDto);
+        checkSaveVoice(authUser.id(), voiceDto, true);
+    }
+
+    private VoiceViewDto checkSaveVoice(Integer userId, VoiceDto voiceDto, boolean shouldExist) {
+        Voice existingVoice = service.get(userId);
+        if (shouldExist && existingVoice == null) {
+            throw new NotFoundException("Vote for update not found");
+        } else if (!shouldExist && existingVoice != null) {
+            throw new VotingRestrictionsException("Your vote for today has already been counted");
+        }
+        return service.save(userId, voiceDto, shouldExist ? existingVoice : null);
     }
 
     @GetMapping("/voted-by-user")

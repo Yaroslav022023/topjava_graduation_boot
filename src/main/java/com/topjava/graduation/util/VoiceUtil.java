@@ -11,11 +11,13 @@ import java.time.LocalTime;
 @UtilityClass
 public class VoiceUtil {
 
-    public static boolean isAvailableToSave() {
-        if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
+    public static final LocalTime VOTING_CHANGE_DEADLINE = LocalTime.of(11, 0);
+
+    public static boolean isAvailableUpdate() {
+        if (LocalTime.now().isBefore(VOTING_CHANGE_DEADLINE)) {
             return true;
         }
-        throw new VotingRestrictionsException("Voting is closed for today after 11 a.m.");
+        throw new VotingRestrictionsException("It is not possible to change the vote for today after 11:00 a.m.");
     }
 
     public static VoiceViewDto asDto(Voice voice) {

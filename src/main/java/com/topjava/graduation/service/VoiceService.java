@@ -17,7 +17,7 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 import static com.topjava.graduation.util.VoiceUtil.asDto;
-import static com.topjava.graduation.util.VoiceUtil.isAvailableToSave;
+import static com.topjava.graduation.util.VoiceUtil.isAvailableUpdate;
 
 @Service
 @AllArgsConstructor
@@ -26,8 +26,12 @@ public class VoiceService {
     private final RestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
 
+    public Voice get(int userId) {
+        return voiceRepository.get(userId, LocalDate.now());
+    }
+
     @Transactional
-    public VoiceViewDto get(int userId) {
+    public VoiceViewDto getViewDto(int userId) {
         return Optional.ofNullable(voiceRepository.get(userId, LocalDate.now()))
                 .map(VoiceUtil::asDto)
                 .orElse(null);
@@ -35,24 +39,20 @@ public class VoiceService {
 
     @Transactional
     @CacheEvict(value = "restaurantsWithNumberVoices", allEntries = true)
-    public VoiceViewDto save(int userId, VoiceDto voiceDto) {
+    public VoiceViewDto save(int userId, VoiceDto voiceDto, Voice voice) {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
 
-        if (isAvailableToSave()) {
-            Voice voice = voiceRepository.get(userId, date);
-            if (voice == null) {
-                voice = new Voice();
-                voice.setUser(userRepository.getReferenceById(userId));
-                voice.setRestaurant(restaurantRepository.getReferenceById(voiceDto.getRestaurantId()));
-                voiceRepository.save(voice);
-            } else {
-                voice.setRestaurant(restaurantRepository.getReferenceById(voiceDto.getRestaurantId()));
-                voice.setDate(date);
-                voice.setTime(time);
-            }
-            return asDto(voice);
+        if (voice != null && isAvailableUpdate()) {
+            voice.setRestaurant(restaurantRepository.getReferenceById(voiceDto.getRestaurantId()));
+            voice.setDate(date);
+            voice.setTime(time);
+        } else {
+            voice = new Voice();
+            voice.setUser(userRepository.getReferenceById(userId));
+            voice.setRestaurant(restaurantRepository.getReferenceById(voiceDto.getRestaurantId()));
+            voiceRepository.save(voice);
         }
-        return null;
+        return asDto(voice);
     }
 }

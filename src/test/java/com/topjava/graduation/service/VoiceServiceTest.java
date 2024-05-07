@@ -34,7 +34,7 @@ public class VoiceServiceTest extends AbstractServiceTest {
 
             VoiceViewDto voice = service.get(ADMIN_ID);
             assertNotNull(voice);
-            assertEquals(FRENCH_ID, voice.getRestaurant().getId());
+            assertEquals(FRENCH_ID, voice.getRestaurantId());
         }
     }
 
@@ -50,7 +50,7 @@ public class VoiceServiceTest extends AbstractServiceTest {
 
             VoiceViewDto voice = service.get(USER_1_ID);
             assertNotNull(voice);
-            assertEquals(FRENCH_ID, voice.getRestaurant().getId());
+            assertEquals(FRENCH_ID, voice.getRestaurantId());
         }
     }
 

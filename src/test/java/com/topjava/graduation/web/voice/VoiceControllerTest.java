@@ -45,7 +45,7 @@ public class VoiceControllerTest extends AbstractControllerTest {
                     .andDo(print());
 
             VoiceViewDto created = VOICE_MATCHER.readFromJson(action);
-            assertEquals(FRENCH_ID, created.getRestaurant().getId());
+            assertEquals(FRENCH_ID, created.getRestaurantId());
             VOICE_MATCHER.assertMatch(service.get(GUEST_ID), created);
 
             RESTAURANT_WITH_NUMBER_VOICES_DTO_MATCHER.assertMatch(

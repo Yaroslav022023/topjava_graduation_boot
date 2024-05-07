@@ -26,6 +26,7 @@ public class VoiceService {
     private final RestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public VoiceViewDto get(int userId) {
         return Optional.ofNullable(voiceRepository.get(userId, LocalDate.now()))
                 .map(VoiceUtil::asDto)

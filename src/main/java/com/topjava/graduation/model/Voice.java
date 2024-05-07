@@ -29,7 +29,7 @@ public class Voice extends BaseEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalTime time;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull(groups = Persist.class)

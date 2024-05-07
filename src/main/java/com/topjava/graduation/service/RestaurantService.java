@@ -7,6 +7,7 @@ import com.topjava.graduation.model.Restaurant;
 import com.topjava.graduation.model.Voice;
 import com.topjava.graduation.repository.RestaurantRepository;
 import com.topjava.graduation.repository.VoiceRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,10 @@ import java.util.List;
 import static com.topjava.graduation.util.RestaurantUtil.*;
 
 @Service
+@AllArgsConstructor
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final VoiceRepository voiceRepository;
-
-    public RestaurantService(RestaurantRepository restaurantRepository, VoiceRepository voiceRepository) {
-        this.restaurantRepository = restaurantRepository;
-        this.voiceRepository = voiceRepository;
-    }
 
     public List<RestaurantViewDto> getAll() {
         return asViewDtos(restaurantRepository.findAll());

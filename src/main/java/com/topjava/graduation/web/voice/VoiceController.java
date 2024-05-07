@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 import static com.topjava.graduation.web.voice.VoiceController.REST_URL;
 
@@ -60,7 +61,7 @@ public class VoiceController {
     @GetMapping("/voted-by-user")
     public ResponseEntity<RestaurantViewDto> getVotedByUser(@AuthenticationPrincipal AuthUser authUser) {
         log.info("getVotedByUser {}", authUser.id());
-        RestaurantViewDto result = restaurantService.getVotedByUserForToday(authUser.id());
-        return result != null ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
+        Optional<RestaurantViewDto> result = Optional.ofNullable(restaurantService.getVotedByUserForToday(authUser.id()));
+        return ResponseEntity.of(result);
     }
 }

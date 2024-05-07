@@ -3,8 +3,7 @@ package com.topjava.graduation.web.user;
 import com.topjava.graduation.dto.UserDto;
 import com.topjava.graduation.model.User;
 import com.topjava.graduation.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -14,8 +13,8 @@ import java.util.List;
 import static com.topjava.graduation.util.validation.ValidationUtil.assureIdConsistent;
 import static com.topjava.graduation.util.validation.ValidationUtil.checkNew;
 
+@Slf4j
 public abstract class AbstractUserController {
-    protected final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserService service;
 

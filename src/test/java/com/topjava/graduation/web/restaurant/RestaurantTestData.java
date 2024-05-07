@@ -45,9 +45,9 @@ public class RestaurantTestData {
             new RestaurantWithNumVoicesViewDto(FRENCH_ID, "French", 0)
     );
     public static final List<RestaurantWithNumVoicesViewDto> restaurantsWithNumberVoicesUpdated = List.of(
+            new RestaurantWithNumVoicesViewDto(ITALIAN_ID, "Italian", 2),
             new RestaurantWithNumVoicesViewDto(ASIAN_ID, "Asian", 1),
-            new RestaurantWithNumVoicesViewDto(FRENCH_ID, "French", 1),
-            new RestaurantWithNumVoicesViewDto(ITALIAN_ID, "Italian", 2)
+            new RestaurantWithNumVoicesViewDto(FRENCH_ID, "French", 1)
     );
 
     public static final List<RestaurantWithNumVoicesViewDto> restaurantsWithNumberVoicesUpdated_2 = List.of(

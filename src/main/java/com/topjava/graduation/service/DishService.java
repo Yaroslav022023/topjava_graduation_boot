@@ -3,6 +3,7 @@ package com.topjava.graduation.service;
 import com.topjava.graduation.model.Dish;
 import com.topjava.graduation.repository.DishRepository;
 import com.topjava.graduation.repository.RestaurantRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,14 +12,10 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class DishService {
     private final DishRepository dishRepository;
     private final RestaurantRepository restaurantRepository;
-
-    public DishService(DishRepository dishRepository, RestaurantRepository restaurantRepository) {
-        this.dishRepository = dishRepository;
-        this.restaurantRepository = restaurantRepository;
-    }
 
     public List<Dish> getAll(int restaurantId) {
         return dishRepository.findAllByRestaurantId(restaurantId);

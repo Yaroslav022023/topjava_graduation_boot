@@ -7,6 +7,7 @@ import com.topjava.graduation.repository.RestaurantRepository;
 import com.topjava.graduation.repository.UserRepository;
 import com.topjava.graduation.repository.VoiceRepository;
 import com.topjava.graduation.util.VoiceUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,17 +20,11 @@ import static com.topjava.graduation.util.VoiceUtil.asDto;
 import static com.topjava.graduation.util.VoiceUtil.isAvailableToSave;
 
 @Service
+@AllArgsConstructor
 public class VoiceService {
     private final VoiceRepository voiceRepository;
     private final RestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
-
-    public VoiceService(VoiceRepository voiceRepository, RestaurantRepository restaurantRepository,
-                        UserRepository userRepository) {
-        this.voiceRepository = voiceRepository;
-        this.restaurantRepository = restaurantRepository;
-        this.userRepository = userRepository;
-    }
 
     public VoiceViewDto get(int userId) {
         return Optional.ofNullable(voiceRepository.get(userId, LocalDate.now()))

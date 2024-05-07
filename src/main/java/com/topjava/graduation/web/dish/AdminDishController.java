@@ -3,8 +3,8 @@ package com.topjava.graduation.web.dish;
 import com.topjava.graduation.model.Dish;
 import com.topjava.graduation.service.DishService;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +19,13 @@ import static com.topjava.graduation.util.validation.ValidationUtil.checkNew;
 import static com.topjava.graduation.web.dish.AdminDishController.REST_URL;
 
 @RestController
+@AllArgsConstructor
+@Slf4j
 @RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminDishController {
     static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes";
-    private final Logger log = LoggerFactory.getLogger(getClass());
-    private final DishService service;
 
-    public AdminDishController(DishService service) {
-        this.service = service;
-    }
+    private final DishService service;
 
     @GetMapping()
     public List<Dish> getAll(@PathVariable int restaurantId) {

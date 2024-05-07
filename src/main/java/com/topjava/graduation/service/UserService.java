@@ -3,6 +3,7 @@ package com.topjava.graduation.service;
 import com.topjava.graduation.dto.UserDto;
 import com.topjava.graduation.model.User;
 import com.topjava.graduation.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.domain.Sort;
@@ -16,16 +17,13 @@ import java.util.List;
 import static com.topjava.graduation.util.UsersUtil.*;
 
 @Service
+@AllArgsConstructor
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserService {
     private static final Sort SORT_NAME_EMAIL = Sort.by(Sort.Direction.ASC, "name", "email");
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public List<User> getAll() {
         return userRepository.findAll(SORT_NAME_EMAIL);

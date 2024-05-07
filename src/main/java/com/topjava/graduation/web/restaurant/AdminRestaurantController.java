@@ -5,6 +5,7 @@ import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantWithNumVoicesViewDto;
 import com.topjava.graduation.model.Restaurant;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import static com.topjava.graduation.util.validation.ValidationUtil.assureIdCons
 import static com.topjava.graduation.util.validation.ValidationUtil.checkNew;
 
 @RestController
+@Slf4j
 @RequestMapping(value = AdminRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminRestaurantController extends AbstractRestaurantController {
     static final String REST_URL = "/api/admin/restaurants";

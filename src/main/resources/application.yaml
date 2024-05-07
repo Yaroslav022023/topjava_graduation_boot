@@ -14,11 +14,11 @@ spring:
         jdbc:
           batch_size: 20
         cache:
-          region:
-            factory_class: org.hibernate.cache.jcache.internal.JCacheRegionFactory
           use_second_level_cache: true
           use_query_cache: false
-          provider: org.ehcache.jsr107.EhcacheCachingProvider
+          region:
+            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+          provider: com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider
       jakarta:
         persistence:
           validation:
@@ -38,10 +38,6 @@ spring:
     getter: none
     setter: none
     is-getter: none
-
-  cache:
-    cache-names: users
-    caffeine.spec: maximumSize=5000
 
 logging:
   level:

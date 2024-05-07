@@ -8,7 +8,6 @@ import com.topjava.graduation.repository.UserRepository;
 import com.topjava.graduation.repository.VoiceRepository;
 import com.topjava.graduation.util.VoiceUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +37,6 @@ public class VoiceService {
     }
 
     @Transactional
-    @CacheEvict(value = "restaurantsWithNumberVoices", allEntries = true)
     public VoiceViewDto save(int userId, VoiceDto voiceDto, Voice voice) {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();

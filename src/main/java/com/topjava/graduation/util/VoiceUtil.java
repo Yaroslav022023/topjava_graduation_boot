@@ -17,7 +17,8 @@ public class VoiceUtil {
         if (LocalTime.now().isBefore(VOTING_CHANGE_DEADLINE)) {
             return true;
         }
-        throw new VotingRestrictionsException("It is not possible to change the vote for today after 11:00 a.m.");
+        throw new VotingRestrictionsException("It is not possible to change the vote for today after " +
+                VOTING_CHANGE_DEADLINE + " a.m.");
     }
 
     public static VoiceViewDto asDto(Voice voice) {

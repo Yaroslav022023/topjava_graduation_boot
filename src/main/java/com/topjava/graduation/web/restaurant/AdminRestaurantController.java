@@ -1,10 +1,11 @@
 package com.topjava.graduation.web.restaurant;
 
 import com.topjava.graduation.dto.RestaurantViewDto;
-import com.topjava.graduation.dto.RestaurantWithDishesViewDto;
 import com.topjava.graduation.dto.RestaurantWithNumVoicesViewDto;
 import com.topjava.graduation.model.Restaurant;
+import com.topjava.graduation.service.RestaurantService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,20 +21,16 @@ import static com.topjava.graduation.util.validation.ValidationUtil.checkNew;
 
 @RestController
 @Slf4j
+@AllArgsConstructor
 @RequestMapping(value = AdminRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestaurantController extends AbstractRestaurantController {
+public class AdminRestaurantController {
     static final String REST_URL = "/api/admin/restaurants";
+    protected RestaurantService service;
 
     @GetMapping
     public List<RestaurantViewDto> getAll() {
         log.info("getAll");
         return service.getAll();
-    }
-
-    @Override
-    @GetMapping("/menu_today")
-    public List<RestaurantWithDishesViewDto> getAllWithTodayDishes() {
-        return super.getAllWithTodayDishes();
     }
 
     @GetMapping("/number-voices")

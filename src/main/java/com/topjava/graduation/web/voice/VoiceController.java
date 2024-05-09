@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Optional;
 
+import static com.topjava.graduation.util.VoiceUtil.VOTING_CHANGE_DEADLINE;
 import static com.topjava.graduation.web.voice.VoiceController.REST_URL;
 
 @RestController
@@ -66,7 +67,8 @@ public class VoiceController {
         if (shouldExist && existingVoice == null) {
             throw new NotFoundException("Vote for update not found");
         } else if (!shouldExist && existingVoice != null) {
-            throw new VotingRestrictionsException("Your vote for today has already been counted");
+            throw new VotingRestrictionsException("Your vote for today has already been counted. " +
+                    "You can change it until " + VOTING_CHANGE_DEADLINE + " a.m.");
         }
         return service.save(userId, voiceDto, shouldExist ? existingVoice : null);
     }

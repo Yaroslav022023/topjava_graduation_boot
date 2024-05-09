@@ -18,7 +18,6 @@ import static com.topjava.graduation.exception.ErrorType.BAD_DATA;
 import static com.topjava.graduation.exception.ErrorType.DATA_CONFLICT;
 import static com.topjava.graduation.util.JsonUtil.writeValue;
 import static com.topjava.graduation.util.RestaurantUtil.asViewDto;
-import static com.topjava.graduation.util.RestaurantUtil.asWithDishesViewDtos;
 import static com.topjava.graduation.web.dish.DishTestData.NOT_FOUND;
 import static com.topjava.graduation.web.restaurant.AdminRestaurantController.REST_URL;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
@@ -42,16 +41,6 @@ public class AdminRestaurantControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(RESTAURANT_MATCHER.contentJson(restaurants));
-    }
-
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void getAllWithTodayDishes() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "menu_today"))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_WITH_DISHES_VIEW_DTO_MATCHER.contentJson(asWithDishesViewDtos(restaurantsSort)));
     }
 
     @Test

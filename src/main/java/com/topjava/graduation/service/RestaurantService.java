@@ -47,6 +47,7 @@ public class RestaurantService {
         return restaurant != null ? asViewDto(restaurant) : null;
     }
 
+    @Transactional
     public RestaurantViewDto getVotedByUserForToday(int userId) {
         Voice voice = voiceRepository.get(userId, LocalDate.now());
         return voice != null ? asViewDto(voice.getRestaurant()) : null;

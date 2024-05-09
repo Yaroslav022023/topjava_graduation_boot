@@ -49,8 +49,8 @@ public class VoiceService {
             voice = new Voice();
             voice.setUser(userRepository.getReferenceById(userId));
             voice.setRestaurant(restaurantRepository.getReferenceById(voiceDto.getRestaurantId()));
-            voiceRepository.save(voice);
         }
+        voiceRepository.save(voice);
         return asDto(voice);
     }
 }

@@ -17,6 +17,7 @@ import java.time.LocalTime;
 import static com.topjava.graduation.exception.ErrorType.NOT_FOUND;
 import static com.topjava.graduation.exception.ErrorType.VOTING_RESTRICTIONS;
 import static com.topjava.graduation.util.JsonUtil.writeValue;
+import static com.topjava.graduation.util.VoiceUtil.VOTING_CHANGE_DEADLINE;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.*;
 import static com.topjava.graduation.web.voice.VoiceController.REST_URL;
@@ -66,7 +67,7 @@ public class VoiceControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_1_MAIL)
     void update() throws Exception {
-        if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
+        if (LocalTime.now().isBefore(VOTING_CHANGE_DEADLINE)) {
             perform(MockMvcRequestBuilders.patch(REST_URL)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(writeValue(new VoiceDto(FRENCH_ID))))
@@ -81,7 +82,7 @@ public class VoiceControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_1_MAIL)
     void updateWithRestrictions() throws Exception {
-        if (LocalTime.now().isAfter(LocalTime.of(11, 0))) {
+        if (LocalTime.now().isAfter(VOTING_CHANGE_DEADLINE)) {
             perform(MockMvcRequestBuilders.patch(REST_URL)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(writeValue(new VoiceDto(FRENCH_ID))))

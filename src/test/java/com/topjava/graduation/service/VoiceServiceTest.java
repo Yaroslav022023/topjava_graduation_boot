@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalTime;
 
 import static com.topjava.graduation.util.RestaurantUtil.asViewDto;
+import static com.topjava.graduation.util.VoiceUtil.VOTING_CHANGE_DEADLINE;
 import static com.topjava.graduation.web.restaurant.RestaurantTestData.*;
 import static com.topjava.graduation.web.user.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +39,7 @@ public class VoiceServiceTest extends AbstractServiceTest {
 
     @Test
     void update() {
-        if (LocalTime.now().isBefore(LocalTime.of(11, 0))) {
+        if (LocalTime.now().isBefore(VOTING_CHANGE_DEADLINE)) {
             service.save(USER_1_ID, new VoiceDto(FRENCH_ID), service.get(USER_1_ID));
 
             RESTAURANT_VIEW_DTO_MATCHER.assertMatch(
@@ -54,7 +55,7 @@ public class VoiceServiceTest extends AbstractServiceTest {
 
     @Test
     void updateWithRestrictions() {
-        if (LocalTime.now().isAfter(LocalTime.of(11, 0))) {
+        if (LocalTime.now().isAfter(VOTING_CHANGE_DEADLINE)) {
             assertThrows(VotingRestrictionsException.class, () ->
                     service.save(USER_3_ID, new VoiceDto(FRENCH_ID), service.get(USER_3_ID)));
         }

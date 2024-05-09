@@ -44,12 +44,19 @@ public class VoiceController {
         return voice != null ? ResponseEntity.ok(voice) : ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/voted-by-user")
+    public ResponseEntity<RestaurantViewDto> getVotedByUser(@AuthenticationPrincipal AuthUser authUser) {
+        log.info("getVotedByUser {}", authUser.id());
+        Optional<RestaurantViewDto> result = Optional.ofNullable(restaurantService.getVotedByUserForToday(authUser.id()));
+        return ResponseEntity.of(result);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VoiceViewDto> createWithLocation(@RequestBody VoiceDto voiceDto,
                                                            @AuthenticationPrincipal AuthUser authUser) {
         log.info("create voice for user={}", authUser.id());
 
-        VoiceViewDto created = checkSaveVoice(authUser.id(), voiceDto, false);
+        VoiceViewDto created = checkAndSave(authUser.id(), voiceDto, false);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL).build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
@@ -59,10 +66,10 @@ public class VoiceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody VoiceDto voiceDto, @AuthenticationPrincipal AuthUser authUser) {
         log.info("update voice of user={}", authUser.id());
-        checkSaveVoice(authUser.id(), voiceDto, true);
+        checkAndSave(authUser.id(), voiceDto, true);
     }
 
-    private VoiceViewDto checkSaveVoice(Integer userId, VoiceDto voiceDto, boolean shouldExist) {
+    private VoiceViewDto checkAndSave(Integer userId, VoiceDto voiceDto, boolean shouldExist) {
         Voice existingVoice = service.get(userId);
         if (shouldExist && existingVoice == null) {
             throw new NotFoundException("Vote for update not found");
@@ -71,12 +78,5 @@ public class VoiceController {
                     "You can change it until " + VOTING_CHANGE_DEADLINE + " a.m.");
         }
         return service.save(userId, voiceDto, shouldExist ? existingVoice : null);
-    }
-
-    @GetMapping("/voted-by-user")
-    public ResponseEntity<RestaurantViewDto> getVotedByUser(@AuthenticationPrincipal AuthUser authUser) {
-        log.info("getVotedByUser {}", authUser.id());
-        Optional<RestaurantViewDto> result = Optional.ofNullable(restaurantService.getVotedByUserForToday(authUser.id()));
-        return ResponseEntity.of(result);
     }
 }

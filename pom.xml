@@ -21,7 +21,6 @@
         <!--Spring Doc-->
         <springdoc.version>2.5.0</springdoc.version>
         <!--Cache-->
-        <ehcache.version>3.10.8</ehcache.version>
         <jcache.version>6.4.4.Final</jcache.version>
         <!--Others-->
         <jsoup.version>1.17.2</jsoup.version>
@@ -68,14 +67,13 @@
             <artifactId>caffeine</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>jcache</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jcache</artifactId>
             <version>${jcache.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>${ehcache.version}</version>
         </dependency>
 
         <!--DB-->

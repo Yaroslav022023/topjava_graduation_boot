@@ -32,7 +32,7 @@ service and web layers.
 -------------------------------------------------------------
 
 - **Stack:** [JDK 21](http://jdk.java.net/22/), Spring Boot 3.2.x, Hibernate/JPA, Spring Security, Maven, Lombok, H2,
-  Caffeine Cache, Ehcache, JUnit 5, SpringDoc OpenAPI 2.5.x, Swagger UI
+  Caffeine Cache, JUnit 5, SpringDoc OpenAPI 2.5.x, Swagger UI
 - **Run:** `mvn spring-boot:run` in root directory.
 
 -------------------------------------------------------------
